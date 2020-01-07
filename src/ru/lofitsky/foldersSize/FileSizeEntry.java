@@ -1,6 +1,6 @@
 package ru.lofitsky.foldersSize;
 
-public class FileSizeEntry implements Comparable {
+public class FileSizeEntry {
     private String path;
     private long size;
     private boolean isFolder;
@@ -21,10 +21,5 @@ public class FileSizeEntry implements Comparable {
 
     public boolean isFolder() {
         return isFolder;
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        return (int) (this.size - ((FileSizeEntry) o).size);
     }
 }

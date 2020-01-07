@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 public class MyFile implements Comparable {
 
+    private static int sortOrder = SortOrder.REVERSED;
     private MyFile parent;
     private File thisFile;
     private long size = -1;
@@ -22,6 +23,22 @@ public class MyFile implements Comparable {
         size = getSize();
     }
 
+    public static int getSortOrder() {
+        return sortOrder;
+    }
+
+    public static void setSortOrder(int sortOrder) {
+        MyFile.sortOrder = sortOrder;
+    }
+
+    public static void setNaturalSortOrder() {
+        sortOrder = SortOrder.NATURAL;
+    }
+
+    public static void setReversedSortOrder() {
+        sortOrder = SortOrder.REVERSED;
+    }
+
     public long getSizeCached() {
         if (size != -1) {
             return size;
@@ -33,18 +50,16 @@ public class MyFile implements Comparable {
     private long getSize() {
         size = 0;
 
-        if (!isFolder) {
-            size = thisFile.length();
-        } else {
+        if (isFolder) {
             for (MyFile myFile : children) {
                 size += myFile.getSize();
             }
+        } else {
+            size = thisFile.length();
         }
 
         if (children != null) {
-            Arrays.sort(children, (f1, f2) -> {
-                return f1.compareTo(f2);
-            });
+            Arrays.sort(children, MyFile::compareTo);
         }
 
         return size;
@@ -70,9 +85,7 @@ public class MyFile implements Comparable {
             return new MyFile[0];
         } else {
             return Arrays.stream(childFiles)
-                    .map(file -> {
-                        return new MyFile(file.getAbsolutePath(), this);
-                    })
+                    .map(file -> new MyFile(file.getAbsolutePath(), this))
                     .collect(Collectors.toList())
                     .toArray(new MyFile[0]);
         }
@@ -95,21 +108,22 @@ public class MyFile implements Comparable {
     }
 
     public FileSizeEntry[] getChildren() {
+        return getChildren(sortOrder);
+    }
+
+    public FileSizeEntry[] getChildren(int order) {
+        setSortOrder(order);
         if(children == null) {
             FileSizeEntry[] singleFileSizeEntry = { new FileSizeEntry(path, getSizeCached(), isFolder) };
             return singleFileSizeEntry;
         }
 
-        FileSizeEntry[] files = (FileSizeEntry[]) Arrays.stream(children)
-                .map(file -> {
-                    return new FileSizeEntry(file.path, file.getSizeCached(), file.isFolder);
-                })
+        FileSizeEntry[] files = Arrays.stream(children)
+                .sorted(MyFile::compareTo)
+                .map(file -> new FileSizeEntry(file.path, file.getSizeCached(), file.isFolder))
                 .collect(Collectors.toList())
                 .toArray(new FileSizeEntry[0]);
 
-        Arrays.sort(files, (f1, f2) -> {
-            return f1.compareTo(f2);
-        });
         return files;
     }
 
@@ -127,6 +141,6 @@ public class MyFile implements Comparable {
     public int compareTo(Object o) {
         long thisSize = getSizeCached();
         long thatSize = ((MyFile) o).getSizeCached();
-        return (int) (thisSize - thatSize);
+        return sortOrder * (int) (thisSize - thatSize);
     }
 }
