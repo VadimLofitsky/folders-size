@@ -2,7 +2,6 @@ package ru.lofitsky.foldersSize;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class MyFile implements Comparable {
 
@@ -82,8 +81,7 @@ public class MyFile implements Comparable {
         } else {
             return Arrays.stream(childFiles)
                     .map(file -> new MyFile(file.getAbsolutePath(), this))
-                    .collect(Collectors.toList())
-                    .toArray(new MyFile[0]);
+                    .toArray(MyFile[]::new);
         }
     }
 
@@ -109,16 +107,15 @@ public class MyFile implements Comparable {
 
     public FileSizeEntry[] getChildren(int order) {
         setSortOrder(order);
-        if(children == null) {
-            FileSizeEntry[] singleFileSizeEntry = { new FileSizeEntry(path, getSizeCached(), isFolder) };
+        if (children == null) {
+            FileSizeEntry[] singleFileSizeEntry = {new FileSizeEntry(path, getSizeCached(), isFolder)};
             return singleFileSizeEntry;
         }
 
         FileSizeEntry[] files = Arrays.stream(children)
                 .sorted(MyFile::compareTo)
                 .map(file -> new FileSizeEntry(file.path, file.getSizeCached(), file.isFolder))
-                .collect(Collectors.toList())
-                .toArray(new FileSizeEntry[0]);
+                .toArray(FileSizeEntry[]::new);
 
         return files;
     }
