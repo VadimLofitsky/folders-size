@@ -39,6 +39,10 @@ public class MyFile implements Comparable {
         sortOrder = SortOrder.REVERSED;
     }
 
+    public boolean isFolder() {
+        return isFolder;
+    }
+
     public long getSizeCached() {
         if (size != -1) {
             return size;
@@ -58,15 +62,7 @@ public class MyFile implements Comparable {
             size = thisFile.length();
         }
 
-        if (children != null) {
-            Arrays.sort(children, MyFile::compareTo);
-        }
-
         return size;
-    }
-
-    public boolean isFolder() {
-        return isFolder;
     }
 
     private MyFile[] retrieveChildren() {
