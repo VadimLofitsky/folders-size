@@ -14,17 +14,7 @@ public class Main {
         MyFile root_D = new MyFile(path_D, null);
 
         for (FileSizeEntry entry : root_D.getChildren()) {
-            String path = entry.getPath();
-            boolean isFolder = entry.isFolder();
-            long size= entry.getSize();
-
-            String output = (isFolder ? "[" : "") +
-                    path +
-                    (isFolder ? "]" : "") +
-                    " = " +
-                    size;
-
-            System.out.println(output);
+            System.out.println(entry);
         }
     }
 }

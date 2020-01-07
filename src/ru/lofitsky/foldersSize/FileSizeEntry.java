@@ -22,4 +22,13 @@ public class FileSizeEntry {
     public boolean isFolder() {
         return isFolder;
     }
+
+    @Override
+    public String toString() {
+        return (isFolder ? "[" : "") +
+                path +
+                (isFolder ? "]" : "") +
+                " = " +
+                size;
+    }
 }
