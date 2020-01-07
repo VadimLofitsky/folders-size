@@ -1,7 +1,7 @@
-package ru.lofitsky;
+package ru.lofitsky.foldersSizeApp;
 
-import ru.lofitsky.folderssize.FileSizeEntry;
-import ru.lofitsky.folderssize.MyFile;
+import ru.lofitsky.foldersSize.FileSizeEntry;
+import ru.lofitsky.foldersSize.MyFile;
 
 import java.io.IOException;
 

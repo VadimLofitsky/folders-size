@@ -1,4 +1,4 @@
-package ru.lofitsky.folderssize;
+package ru.lofitsky.foldersSize;
 
 import java.io.File;
 import java.util.Arrays;
