@@ -15,6 +15,9 @@ table#filesShow tr {
     margin: 1px 0 1px 0;
     background-color: #777;
 }
+table#filesShow tr:nth-child(2)+tr:hover {
+    cursor: pointer;
+}
 
 table#filesShow td {
     overflow-x: hidden;

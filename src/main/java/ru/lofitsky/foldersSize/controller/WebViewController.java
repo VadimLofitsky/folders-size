@@ -14,7 +14,7 @@ public class WebViewController {
     private FilesService filesService;
 
     @GetMapping("/")
-    String index(Model model, @RequestParam String path) {
+    String index(Model model, @RequestParam(required = false) String path) {
 
         path = filesService.validatePathArgument(path);
 
