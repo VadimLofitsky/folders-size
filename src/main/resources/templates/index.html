@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Folders size</title>
+
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <table id="filesShow" border="1px" align="center">
+        <tr>
+            <td id="pathShow"
+                colspan="3"
+                th:text="${path}">
+            </td>
+        </tr>
+        <tr th:each="file : ${filesList}">
+            <td th:classappend="${file.isFolder() ? 'far fa-folder' : 'far fa-file-alt'}"></td>
+            <td class="name"
+                th:text="${file.getShortName()}"
+                th:classappend="${file.isFolder() ? 'is-folder' : 'is-file'}"
+                th:style="${'background: linear-gradient(to right, red, white ' + (100*file.getRatioToParent()) + '%);'}">
+            </td>
+            <td th:text="${#numbers.formatPercent(file.getRatioToParent(), 1, 2)}"></td>
+            <td th:text="${file.getSize()}"></td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -93,7 +93,7 @@ public class MyFile implements Comparable {
         return thisFile.getName();
     }
 
-    public MyFile getParen() {
+    public MyFile getParent() {
         return parent;
     }
 
@@ -106,15 +106,17 @@ public class MyFile implements Comparable {
     }
 
     public FileSizeEntry[] getChildren(int order) {
+        MyFile self = this;
         setSortOrder(order);
+
         if (children == null) {
-            FileSizeEntry[] singleFileSizeEntry = {new FileSizeEntry(path, getSizeCached(), isFolder)};
-            return singleFileSizeEntry;
+            FileSizeEntry[] emptyFileSizeEntry = { new FileSizeEntry(path, getSizeCached(), isFolder, self, getShortName()) };
+            return emptyFileSizeEntry;
         }
 
         FileSizeEntry[] files = Arrays.stream(children)
                 .sorted(MyFile::compareTo)
-                .map(file -> new FileSizeEntry(file.path, file.getSizeCached(), file.isFolder))
+                .map(file -> new FileSizeEntry(file.path, file.getSizeCached(), file.isFolder, self, file.getShortName()))
                 .toArray(FileSizeEntry[]::new);
 
         return files;
