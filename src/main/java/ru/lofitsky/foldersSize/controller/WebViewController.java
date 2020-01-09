@@ -13,7 +13,7 @@ public class WebViewController {
     @Autowired
     private FilesService filesService;
 
-    @GetMapping("/index")
+    @GetMapping("/")
     String index(Model model, @RequestParam String path) {
 
         path = filesService.validatePathArgument(path);

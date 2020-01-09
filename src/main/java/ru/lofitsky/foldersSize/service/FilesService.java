@@ -11,7 +11,7 @@ import java.util.List;
 public class FilesService {
 
     public String validatePathArgument(String path) {
-        return ((path == null) || path.equals("")) ? "d:\\JavaPrjs" : path;
+        return ((path == null) || path.equals("")) ? "//" : path;
     }
 
     public String getFilesHtmlText(String path) {
@@ -24,7 +24,6 @@ public class FilesService {
         StringBuilder files = new StringBuilder();
         files.append("<b>Path: ").append(path).append("</b>").append(lineSeparator);
         for (FileSizeEntry entry : root.getChildren()) {
-//            System.out.println(entry);
             files.append(entry).append(lineSeparator);
         }
 
