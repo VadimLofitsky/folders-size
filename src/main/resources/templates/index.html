@@ -9,15 +9,18 @@
 </head>
 
 <body>
-    <table id="filesShow" border="1px" align="center">
+    <table id="filesShow" align="center">
         <tr>
+            <td class="logo">
+                <i class="fas fa-stream"></i>
+            </td>
             <td id="pathShow"
-                colspan="5"
+                colspan="4"
                 th:text="${path}">
             </td>
         </tr>
         <tr id="legend">
-            <td></td>
+            <td><i class="far fa-folder fa-xs"></i> / <i class="far fa-file-alt fa-xs"></i></td>
             <td>Filename</td>
             <td class="file-size">Ratio to parent size</td>
             <td>Size</td>
@@ -33,7 +36,7 @@
                 th:style="${'background: linear-gradient(to right, red, transparent ' + (100*file.getRatioToParent()) + '%);'}"></td>
             <td class="file-size-ratio" th:text="${#numbers.formatPercent(file.getRatioToParent(), 1, 2)}"></td>
             <td class="file-size-pretty" th:text="${file.getPrettyPrintedSize()}"></td>
-            <td class="file-size" th:text="${file.getSize() + ' bytes'}"></td>
+            <td class="file-size" th:text="${file.getSize()}"></td>
         </tr>
     </table>
 </body>
