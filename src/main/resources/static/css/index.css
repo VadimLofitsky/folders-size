@@ -1,11 +1,18 @@
 body {
     width: 100%;
     height: 100%;
+    color: darkblue;
+    background-color: gray;
+    font-family: Consolas;
 }
 
 table#filesShow {
     width: 75%;
     height: 100%;
+}
+
+table#filesShow td {
+    overflow-x: hidden;
 }
 
 td#pathShow {
@@ -14,19 +21,37 @@ td#pathShow {
     font-weight: bold;
 }
 
-table#filesShow td.is-folder {
-    font-weight: bold;
-}
-
-table#filesShow td.is-file {
-    font-size: small;
-    font-style: italic;
-}
-
-td:first-child {
+table#filesShow td:first-child {
     border: none !important;
 }
 
+table#filesShow tr#legend {
+    background-color: darkgray;
+    font-weight: bold;
+    font-size: larger;
+    text-align: center;
+}
+
+table#filesShow td.file-type {
+    width: 5%;
+    text-align: center;
+}
+
+table#filesShow td.file-name {
+    width: 45%;
+}
+table#filesShow td.file-name.is-folder {
+    font-weight: bold;
+}
+table#filesShow td.file-name.is-file {
+    font-size: small;
+    font-style: italic;
+}
 .far.fa-folder {
-    background-color: gold;
+    /*background-color: gold;*/
+}
+
+table#filesShow td[class*='file-size'] {
+    width: 16.66%;
+    font-family: monospace;
 }

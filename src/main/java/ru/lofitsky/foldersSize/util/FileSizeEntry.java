@@ -39,6 +39,15 @@ public class FileSizeEntry {
         return (float) size / parent.getSizeCached();
     }
 
+    public String getPrettyPrintedSize() {
+        String[] prefixes = {"", "K", "M", "G", "T"};
+        double base = 1024.0d;
+        int pow = (int) (Math.log(size) / Math.log(base));
+        double prettySize = size / Math.pow(base, pow);
+
+        return String.format("%3.2f %sBytes", prettySize, prefixes[pow]);
+    }
+
     @Override
     public String toString() {
         return (isFolder ? "[" : "") +
