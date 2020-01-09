@@ -11,7 +11,7 @@ import java.util.List;
 public class FilesService {
 
     public String validatePathArgument(String path) {
-        return ((path == null) || path.equals("")) ? "//" : path;
+        return ((path == null) || path.equals("")) ? "/" : path;
     }
 
     public String getFilesHtmlText(String path) {
