@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.lofitsky.foldersSize.service.FilesService;
 
 @RestController
-public class Controller {
+public class FilesController {
 
     @Autowired
     private FilesService service;
 
-    @RequestMapping("/")
+    @RequestMapping("")
     String index() {
-        return service.getFiles("d:\\JavaPrjs\\git\\bookstoreexample");
+        return service.getFilesHtmlText("d:\\JavaPrjs\\git\\bookstoreexample");
     }
 }
