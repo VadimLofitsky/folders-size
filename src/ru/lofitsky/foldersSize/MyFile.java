@@ -7,6 +7,8 @@ import java.util.Comparator;
 public class MyFile {
 
     private static int sortOrder = SortOrder.REVERSED;
+    private static Comparator<MyFile> comparator = Comparator.comparingLong(MyFile::getSizeCached);
+
     private MyFile parent;
     private File thisFile;
     private long size = -1;
@@ -113,7 +115,6 @@ public class MyFile {
             return singleFileSizeEntry;
         }
 
-        Comparator<MyFile> comparator = Comparator.comparingLong(MyFile::getSizeCached);
         if (sortOrder == SortOrder.REVERSED) {
             comparator = comparator.reversed();
         }
