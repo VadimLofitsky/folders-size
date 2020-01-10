@@ -15,10 +15,9 @@ public class FilesService {
 
     public String validatePathArgument(String path) {
         if ((path == null) || path.equals("")) {
-            path = "d:\\Javaprjs\\git";
+//            path = "d:\\Javaprjs\\git";
+            path = "/";
         } else {
-            path = path.replaceAll("/\\/g", "\\\\");
-
             if (path.indexOf("..") != -1) {
                 path = new File(path.replace("..", "")).getParent();
             }
@@ -47,7 +46,6 @@ public class FilesService {
 
     public List<FileSizeEntry> getFilesList(String path) {
         List<FileSizeEntry> list = Arrays.asList(root.getChildren());
-        System.out.println(list);
         return list;
     }
 

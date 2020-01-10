@@ -22,6 +22,7 @@ public class WebViewController {
 
         model.addAttribute("path", path);
         model.addAttribute("pathSize", MyFile.getPrettyPrintedSize(filesService.getRoot().getSizeCached()));
+
         model.addAttribute("filesList", filesService.getFilesList(path));
 
         return "index";
