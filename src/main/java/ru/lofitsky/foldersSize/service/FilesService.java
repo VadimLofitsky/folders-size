@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.lofitsky.foldersSize.util.FileSizeEntry;
 import ru.lofitsky.foldersSize.util.MyFile;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,7 +12,17 @@ import java.util.List;
 public class FilesService {
 
     public String validatePathArgument(String path) {
-        return ((path == null) || path.equals("")) ? "/" : path;
+        if ((path == null) || path.equals("")) {
+            return "d:\\Javaprjs\\git";
+        } else {
+            path = path.replaceAll("/\\/g", "\\\\");
+
+            if (path.indexOf("..") == -1) {
+                return path;
+            }
+
+            return new File(path.replace("..", "")).getParent();
+        }
     }
 
     public String getFilesHtmlText(String path) {
@@ -39,6 +50,8 @@ public class FilesService {
     public List<FileSizeEntry> getFilesList(String path) {
         path = validatePathArgument(path);
         MyFile root = new MyFile(path, null);
-        return Arrays.asList(root.getChildren());
+        List<FileSizeEntry> list = Arrays.asList(root.getChildren());
+        System.out.println(list);
+        return list;
     }
 }

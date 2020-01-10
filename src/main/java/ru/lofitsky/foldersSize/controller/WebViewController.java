@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.lofitsky.foldersSize.service.FilesService;
 
@@ -14,12 +15,14 @@ public class WebViewController {
     private FilesService filesService;
 
     @GetMapping("/")
-    String index(Model model, @RequestParam(required = false) String path) {
+    String index(Model model, @RequestHeader(required = false, name = "folders-size-path") String path) {
+        // https://www.baeldung.com/spring-rest-http-headers
 
         path = filesService.validatePathArgument(path);
+        System.out.println("GET request with: " + path);
 
         model.addAttribute("path", path);
         model.addAttribute("filesList", filesService.getFilesList(path));
-        return "index";
+        return "index.html";
     }
 }

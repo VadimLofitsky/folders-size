@@ -128,6 +128,10 @@ public class MyFile {
         return files;
     }
 
+    public String getParentFolder() {
+        return thisFile.getParent();
+    }
+
     @Override
     public String toString() {
         return "MyFile{" +
