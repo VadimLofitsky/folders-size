@@ -11,24 +11,24 @@ import java.util.List;
 @Service
 public class FilesService {
 
+    private MyFile root;
+
     public String validatePathArgument(String path) {
         if ((path == null) || path.equals("")) {
-            return "d:\\Javaprjs\\git";
+            path = "d:\\Javaprjs\\git";
         } else {
             path = path.replaceAll("/\\/g", "\\\\");
 
-            if (path.indexOf("..") == -1) {
-                return path;
+            if (path.indexOf("..") != -1) {
+                path = new File(path.replace("..", "")).getParent();
             }
-
-            return new File(path.replace("..", "")).getParent();
         }
+
+        root = new MyFile(path, null);
+        return path;
     }
 
     public String getFilesHtmlText(String path) {
-        path = validatePathArgument(path);
-
-        MyFile root = new MyFile(path, null);
 
         final String lineSeparator = "<br>";
 
@@ -42,16 +42,20 @@ public class FilesService {
     }
 
     public FileSizeEntry[] getFilesArray(String path) {
-        path = validatePathArgument(path);
-        MyFile root = new MyFile(path, null);
         return root.getChildren();
     }
 
     public List<FileSizeEntry> getFilesList(String path) {
-        path = validatePathArgument(path);
-        MyFile root = new MyFile(path, null);
         List<FileSizeEntry> list = Arrays.asList(root.getChildren());
         System.out.println(list);
         return list;
+    }
+
+    public MyFile getRoot() {
+        return root;
+    }
+
+    public boolean isRootTopLevel() {
+        return root.isTopLevel();
     }
 }

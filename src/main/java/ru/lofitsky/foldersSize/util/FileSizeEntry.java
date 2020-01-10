@@ -40,13 +40,7 @@ public class FileSizeEntry {
     }
 
     public String getPrettyPrintedSize() {
-        String[] prefixes = {"", "K", "M", "G", "T", "P"};
-
-        double base = 1024.0d;
-        int pow = (size != 0) ? (int) (Math.log(size) / Math.log(base)) : 0;
-        double prettySize = size / Math.pow(base, pow);
-
-        return String.format("%3.2f %sBytes", prettySize, prefixes[pow]);
+        return MyFile.getPrettyPrintedSize(size);
     }
 
     @Override

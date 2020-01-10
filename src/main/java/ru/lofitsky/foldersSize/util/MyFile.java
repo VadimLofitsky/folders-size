@@ -119,7 +119,7 @@ public class MyFile {
         setSortOrder(order);
 
         if (children == null) {
-            FileSizeEntry[] emptyFileSizeEntry = { new FileSizeEntry(path, getSizeCached(), isFolder, self, getShortName()) };
+            FileSizeEntry[] emptyFileSizeEntry = {new FileSizeEntry(path, getSizeCached(), isFolder, self, getShortName())};
             return emptyFileSizeEntry;
         }
 
@@ -138,6 +138,16 @@ public class MyFile {
 
     public String getParentFolder() {
         return thisFile.getParent();
+    }
+
+    public static String getPrettyPrintedSize(long abstractSize) {
+        String[] prefixes = {"", "K", "M", "G", "T", "P"};
+
+        double base = 1024.0d;
+        int pow = (abstractSize != 0) ? (int) (Math.log(abstractSize) / Math.log(base)) : 0;
+        double prettySize = abstractSize / Math.pow(base, pow);
+
+        return String.format("%3.2f %sBytes", prettySize, prefixes[pow]);
     }
 
     @Override
