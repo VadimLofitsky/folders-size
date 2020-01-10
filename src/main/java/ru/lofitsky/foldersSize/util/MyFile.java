@@ -7,6 +7,7 @@ import java.util.Comparator;
 public class MyFile {
 
     private static int sortOrder = SortOrder.REVERSED;
+    private boolean isTopLevel;
     private MyFile parent;
     private File thisFile;
     private long size = -1;
@@ -19,6 +20,9 @@ public class MyFile {
         thisFile = new File(fullPath);
         this.path = fullPath;
         isFolder = thisFile.isDirectory();
+
+        isTopLevel = thisFile.getParent() == null;
+
         children = retrieveChildren();
         size = getSize();
     }
@@ -37,6 +41,10 @@ public class MyFile {
 
     public static void setReversedSortOrder() {
         sortOrder = SortOrder.REVERSED;
+    }
+
+    public boolean isTopLevel() {
+        return isTopLevel;
     }
 
     public boolean isFolder() {

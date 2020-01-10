@@ -1,12 +1,10 @@
-document.addEventListener("DOMContentLoaded", pageInit)
+document.addEventListener("DOMContentLoaded", pageInit);
 
 function pageInit() {
     document.body.onclick = onBodyClick;
-    console.log("Init");
 }
 
 function onBodyClick(clickEvent) {
-    console.log("onClick");
     var element = window.event.srcElement;
     if (element.tagName != "TD") {
         return false;
@@ -30,7 +28,7 @@ function getNewPage(newPath) {
     xhr.setRequestHeader("folders-size-path", newPath);
     xhr.send(null);
 
-    xhr.onreadystatechange = function() { // (3)
+    xhr.onreadystatechange = function() {
         if (xhr.readyState != 4) return;
 
         // button.innerHTML = 'Готово!';
@@ -39,7 +37,7 @@ function getNewPage(newPath) {
             console.log(xhr.status + ': ' + xhr.statusText);
         } else {
             document.body.parentElement.innerHTML = xhr.responseText;
-            // console.log(xhr.responseText);
+            pageInit();
         }
     }
 }

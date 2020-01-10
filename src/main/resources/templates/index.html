@@ -28,7 +28,7 @@
             <td>Size</td>
             <td>Size in bytes</td>
         </tr>
-        <tr th:attr="data-path=${path + '..'}">
+        <tr th:attr="data-path=${path + '/..'}">
             <td colspan="5">..</td>
         </tr>
         <tr th:each="file : ${filesList}" th:attr="data-path=${file.getPath()}">
