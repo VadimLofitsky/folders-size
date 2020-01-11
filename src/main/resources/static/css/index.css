@@ -40,8 +40,31 @@ table#filesShow td:first-child {
     text-align: center;
 }
 
-table#filesShow td.logo {
+table#filesShow .logo {
     color: #ff6a78;
+}
+@-webkit-keyframes rotation {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotating {
+    animation: rotation 2.5s linear infinite;
+    /*position: absolute;*/
+    /*left: -15px;*/
+    /*top: -15px;*/
 }
 
 table#filesShow tr#legend {
