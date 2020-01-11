@@ -16,10 +16,11 @@ function onBodyClick(clickEvent) {
         return false;
     }
 
-    getNewPage(path);
+    rotateLogo(true);
+    getNewTable(path);
 }
 
-function getNewPage(newPath) {
+function getNewTable(newPath) {
     // https://stackoverflow.com/questions/34319709/how-to-send-an-http-request-with-a-header-parameter
     // https://learn.javascript.ru/ajax-xmlhttprequest
 
@@ -36,8 +37,19 @@ function getNewPage(newPath) {
         if (xhr.status != 200) {
             console.log(xhr.status + ': ' + xhr.statusText);
         } else {
-            document.body.parentElement.innerHTML = xhr.responseText;
-            pageInit();
+            var element = document.createElement("html");
+            element.innerHTML = xhr.responseText;
+            document.querySelector("table#filesShow").outerHTML = element.querySelector("table#filesShow").outerHTML;
+            rotateLogo(false);  // not necessary. Table contents replaced
         }
+    }
+}
+
+function rotateLogo(turnOn) {
+    var classList = document.querySelector(".logo").classList;
+    if (turnOn) {
+        classList.add("rotating");
+    } else {
+        classList.remove("rotating");
     }
 }
