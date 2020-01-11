@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import ru.lofitsky.foldersSize.service.FilesService;
 import ru.lofitsky.foldersSize.util.MyFile;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+
 @Controller
 public class WebViewController {
 
@@ -15,10 +19,14 @@ public class WebViewController {
     private FilesService filesService;
 
     @GetMapping("/")
-    String index(Model model, @RequestHeader(required = false, name = "folders-size-path") String path) {
+    String index(Model model, @RequestHeader(required = false, name = "folders-size-path") String path) throws UnsupportedEncodingException {
 
-        path = filesService.validatePathArgument(path);
 //        System.out.println("GET request with: " + path);
+        if (path == null) {
+            path = "";
+        }
+        String decodedPath = URLDecoder.decode(path, StandardCharsets.UTF_8.name());
+        path = filesService.validatePathArgument(decodedPath);
 
         model.addAttribute("path", path);
         model.addAttribute("pathSize", MyFile.getPrettyPrintedSize(filesService.getRoot().getSizeCached()));

@@ -26,7 +26,7 @@ function getNewTable(newPath) {
 
     var xhr = new XMLHttpRequest();
     xhr.open( "GET", "/", true);
-    xhr.setRequestHeader("folders-size-path", newPath);
+    xhr.setRequestHeader("folders-size-path", encodeURI(newPath));
     xhr.send(null);
 
     xhr.onreadystatechange = function() {
