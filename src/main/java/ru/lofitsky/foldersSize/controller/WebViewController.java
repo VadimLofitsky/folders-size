@@ -28,7 +28,6 @@ public class WebViewController {
     String index(Model model,
                  @RequestHeader(required = false, name = "folders-size-path") String path) throws UnsupportedEncodingException {
 
-//        System.out.println("GET request with: " + path);
         if (path == null) {
             path = "";
         }
