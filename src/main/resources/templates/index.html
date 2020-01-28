@@ -17,8 +17,11 @@
                 <i class="logo fas fa-stream"></i>
             </td>
             <td id="pathShow"
-                colspan="4"
-                th:text="${path + ' - ' + pathSize}">
+                colspan="4">
+                <span th:text="${path}" />
+                <span th:text="${pathSize}" />
+                <span th:text="${duration}"
+                      style="font-size: smaller; font-style: italic" />
             </td>
         </tr>
         <tr id="legend">

@@ -1,7 +1,8 @@
 package ru.lofitsky.foldersSize.util;
 
+import ru.lofitsky.utils.PrettyPrint;
+
 import java.io.File;
-import java.nio.file.FileSystems;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -143,13 +144,14 @@ public class MyFile {
     }
 
     public static String getPrettyPrintedSize(long abstractSize) {
-        String[] prefixes = {"", "K", "M", "G", "T", "P"};
-
-        double base = 1024.0d;
-        int pow = (abstractSize != 0) ? (int) (Math.log(abstractSize) / Math.log(base)) : 0;
-        double prettySize = abstractSize / Math.pow(base, pow);
-
-        return String.format("%3.2f %sBytes", prettySize, prefixes[pow]);
+        return new PrettyPrint("Bytes", 1024L).print(abstractSize, 2);
+//        String[] prefixes = {"", "K", "M", "G", "T", "P"};
+//
+//        double base = 1024.0d;
+//        int pow = (abstractSize != 0) ? (int) (Math.log(abstractSize) / Math.log(base)) : 0;
+//        double prettySize = abstractSize / Math.pow(base, pow);
+//
+//        return String.format("%3.2f %sBytes", prettySize, prefixes[pow]);
     }
 
     @Override

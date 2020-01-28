@@ -15,8 +15,8 @@ public class FilesService {
 
     public String validatePathArgument(String path) {
         if ((path == null) || path.equals("")) {
-//            path = "d:\\Javaprjs\\git";
-            path = "/";
+            path = "d:\\Javaprjs\\git";
+//            path = "/";
         } else {
             if (path.indexOf("..") != -1) {
                 path = new File(path.replace("..", "")).getParent();
