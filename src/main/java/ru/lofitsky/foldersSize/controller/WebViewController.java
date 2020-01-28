@@ -6,9 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import ru.lofitsky.foldersSize.service.FilesService;
-import ru.lofitsky.foldersSize.util.ExecutionPerformance;
 import ru.lofitsky.foldersSize.util.FileSizeEntry;
 import ru.lofitsky.foldersSize.util.MyFile;
+import ru.lofitsky.utils.ExecutionPerformance;
 import ru.lofitsky.utils.PrettyPrint;
 
 import java.io.UnsupportedEncodingException;
