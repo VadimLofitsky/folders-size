@@ -45,8 +45,8 @@ public class WebViewController {
 
         model.addAttribute("path", path);
         model.addAttribute("pathSize", prettyPrintedSize);
-        model.addAttribute("filesList", filesList);
         model.addAttribute("duration", duration);
+        model.addAttribute("filesList", filesList);
 
         return "index";
     }
