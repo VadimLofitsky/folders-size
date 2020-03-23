@@ -4,6 +4,7 @@ body {
     color: #263238;
     background-color: gray;
     font-family: Consolas;
+    font-family: "JetBrains Mono";
 }
 
 table#filesShow {
@@ -32,6 +33,9 @@ td#pathShow {
     text-align: center;
     font-size: larger;
     font-weight: bold;
+}
+td#pathShow>span:nth-child(n+1) {
+    margin-left: 15px;
 }
 
 table#filesShow td:first-child {
