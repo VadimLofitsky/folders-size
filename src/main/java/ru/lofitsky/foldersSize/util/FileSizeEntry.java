@@ -1,4 +1,4 @@
-package ru.lofitsky.foldersSize.MyFile;
+package ru.lofitsky.foldersSize.util;
 
 public class FileSizeEntry {
     private final String path;
@@ -36,7 +36,7 @@ public class FileSizeEntry {
     }
 
     public float getRatioToParent() {
-        return size != -1 ? (float) size / parent.getSize() : 0F;
+        return (float) size / parent.getSizeCached();
     }
 
     public String getPrettyPrintedSize() {
