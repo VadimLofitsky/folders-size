@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Folders size</title>
+
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <script src="js/index.js"></script>
+</head>
+
+<body>
+    <table id="filesShow" align="center">
+        <tr>
+            <td>
+                <i class="logo fas fa-stream"></i>
+            </td>
+            <td id="pathShow"
+                colspan="4">
+                <span th:text="${path}" />
+                <span th:text="${pathSize}" />
+                <span th:text="${duration}"
+                      style="font-size: smaller; font-style: italic" />
+            </td>
+        </tr>
+        <tr id="legend">
+            <td><i class="far fa-folder fa-xs"></i> / <i class="far fa-file-alt fa-xs"></i></td>
+            <td>Filename</td>
+            <td class="file-size">Ratio to parent size</td>
+            <td>Size</td>
+            <td>Size in bytes</td>
+        </tr>
+        <tr th:attr="data-path=${parentPath}">
+            <td colspan="5">..</td>
+        </tr>
+        <tr th:each="file : ${filesList}" th:attr="data-path=${file.getPath()}">
+            <td class="file-type">
+                <i th:classappend="${file.isFolder() ? 'far fa-folder' : 'far fa-file-alt'}"></i>
+            </td>
+            <td class="file-name"
+                th:text="${file.getShortName()}"
+                th:classappend="${file.isFolder() ? 'is-folder' : 'is-file'}"
+                th:style="${'background: linear-gradient(to right, red, transparent ' + (100*file.getRatioToParent()) + '%);'}"></td>
+            <td class="file-size-ratio" th:text="${#numbers.formatPercent(file.getRatioToParent(), 1, 2)}"></td>
+            <td class="file-size-pretty" th:text="${file.getPrettyPrintedSize()}"></td>
+            <td class="file-size" th:text="${file.getSize()!=-1 ? file.getSize() : ''}"></td>
+        </tr>
+    </table>
+</body>
+</html>
