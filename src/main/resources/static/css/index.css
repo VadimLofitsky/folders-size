@@ -4,6 +4,7 @@ body {
     color: #263238;
     background-color: gray;
     font-family: Consolas;
+    font-family: "JetBrains Mono";
 }
 
 table#filesShow {

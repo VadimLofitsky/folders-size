@@ -31,7 +31,7 @@
             <td>Size</td>
             <td>Size in bytes</td>
         </tr>
-        <tr th:attr="data-path=${path + '/..'}">
+        <tr th:attr="data-path=${parentPath}">
             <td colspan="5">..</td>
         </tr>
         <tr th:each="file : ${filesList}" th:attr="data-path=${file.getPath()}">
@@ -44,7 +44,7 @@
                 th:style="${'background: linear-gradient(to right, red, transparent ' + (100*file.getRatioToParent()) + '%);'}"></td>
             <td class="file-size-ratio" th:text="${#numbers.formatPercent(file.getRatioToParent(), 1, 2)}"></td>
             <td class="file-size-pretty" th:text="${file.getPrettyPrintedSize()}"></td>
-            <td class="file-size" th:text="${file.getSize()}"></td>
+            <td class="file-size" th:text="${file.getSize()!=-1 ? file.getSize() : ''}"></td>
         </tr>
     </table>
 </body>

@@ -1,4 +1,4 @@
-package ru.lofitsky.foldersSize.util;
+package ru.lofitsky.foldersSize.MyFile;
 
 public class SortOrder {
     public static final int REVERSED = -1;
