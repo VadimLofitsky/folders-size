@@ -1,4 +1,4 @@
-package ru.lofitsky.foldersSize.myFile;
+package ru.lofitsky.foldersSize.MyFile;
 
 public class FileSizeEntry {
     private final String path;

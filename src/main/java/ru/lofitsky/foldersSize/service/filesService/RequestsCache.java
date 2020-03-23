@@ -1,6 +1,6 @@
 package ru.lofitsky.foldersSize.service.filesService;
 
-import ru.lofitsky.foldersSize.myFile.MyFile;
+import ru.lofitsky.foldersSize.MyFile.MyFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +19,8 @@ class RequestsCache {
     MyFile add(String path) {
         // no parent cached. Store new file.
 
-        MyFile myFile = new MyFile(path, true);
+        MyFile myFile = new MyFile(path);
+        myFile.calculateSize();
         cache.put(path, myFile);
 
         // Look for child branches and remove them if present.
@@ -38,7 +39,7 @@ class RequestsCache {
             // path has not been already cached. Look for its cached parent
             String parentBranch = getParentBranch(path);
             if(parentBranch != null) {
-                // cache contains parent branch. Retrieve file from cache
+                // cache contains parent branch. Retrieve myFile from cache
                 myFile = cache.get(parentBranch);
                 for(String child : parentBranch.split(FilesService.pathSeparator)) {
                     myFile = myFile.getChild(child);

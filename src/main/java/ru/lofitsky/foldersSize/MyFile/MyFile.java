@@ -1,4 +1,4 @@
-package ru.lofitsky.foldersSize.myFile;
+package ru.lofitsky.foldersSize.MyFile;
 
 import ru.lofitsky.foldersSize.util.PrettyPrint;
 
@@ -28,37 +28,25 @@ public class MyFile {
     }
 
     public MyFile(String fullPath) {
-        System.out.println("MyFile(String) constructor: fullPath = <" + fullPath + ">");
+//        System.out.println("MyFile(String) constructor: fullPath = <" + fullPath + ">");
         thisFile = new File(fullPath);
-        this.path = fullPath;
+
+        if(thisFile.getParentFile() == null) {
+            parent = FileSystemRootElement.getRootInstance();
+        } else {
+            parent = new MyFile(thisFile.getParent());
+        }
+
+        path = fullPath;
         isFolder = thisFile.isDirectory();
 
         isTopLevel = thisFile.getParent() == null;
 
         files = getFiles();
-
-//        children = retrieveChildren();
     }
-
-    public MyFile(String fullPath, boolean calcSize) {
-        this(fullPath);
-
-        // Not necessary "if". The calcSize argument is used only to show that calculating is needed while creation
-        if(calcSize)
-            calculateSize();
-    }
-
     public MyFile(String fullPath, MyFile parent) {
         this(fullPath);
-
         this.parent = parent;
-    }
-
-    public MyFile(String fullPath, MyFile parent, boolean calcSize) {
-        this(fullPath, parent);
-
-        if(calcSize)    // Not necessary "if". The calcSize argument used only to overload the constructor
-            calculateSize();
     }
 
     public static int getSortOrder() {
@@ -96,7 +84,7 @@ public class MyFile {
 
         if(isFolder) {
             if(children == null) {
-                children = retrieveChildren();
+                children = retrieveChildren(true);
             }
 
             for(MyFile child : children) {
@@ -109,38 +97,21 @@ public class MyFile {
         return size;
     }
 
-    public String[] getFiles() {
-        if (!isFolder)
-            return null;
-
-        File[] childFiles;
-        try {
-            childFiles = thisFile.listFiles();
-        } catch (SecurityException e) {
-            System.out.println("Read access denied for " + path);
-            return null;
-        }
-
-        if (childFiles == null || childFiles.length == 0) {
-            return null;
-        } else {
-            return Arrays.stream(childFiles)
-                    .map(File::getName)
-                    .toArray(String[]::new);
-        }
-    }
-
-    public MyFile[] retrieveChildren() {
+    private MyFile[] retrieveChildren(boolean performSizeCalculation) {
         if(!isFolder)
-            return null;
+            return new MyFile[0];
 
-        if(files == null || files.length == 0) {
+        if(files.length == 0) {
             return new MyFile[0];
         } else {
-            // It seems that MyFile[] children is needed only when calculating the size
             String thisPath = getPath() + pathSeparator;
             return Arrays.stream(files)
-                    .map(path -> new MyFile(thisPath + path, this, true))
+                    .parallel()
+                    .map(path -> new MyFile(thisPath + path, this))
+                    .peek(myFile -> {
+                        if(performSizeCalculation)
+                            myFile.calculateSize();
+                    })
                     .toArray(MyFile[]::new);
         }
     }
@@ -153,6 +124,10 @@ public class MyFile {
         setSortOrder(order);
 
         if (children == null) {
+            children = retrieveChildren(false);
+        }
+
+        if(children.length == 0) {
             FileSizeEntry[] emptyFileSizeEntry = {new FileSizeEntry(path, getSize(), isFolder, self, getShortName())};
             return emptyFileSizeEntry;
         }
@@ -171,6 +146,10 @@ public class MyFile {
     }
 
     public MyFile getChild(String childName) {
+        if(children == null) {
+            children = retrieveChildren(false);
+        }
+
         for(MyFile child : children) {
             if(child.getShortName().equals(childName))
                 return child;
@@ -194,7 +173,7 @@ public class MyFile {
     }
 
     public String getParentPath() {
-        return thisFile.getParent();
+        return parent.path;
     }
 
     public String getParentFolder() {
@@ -202,6 +181,10 @@ public class MyFile {
     }
 
     public boolean hasChild(String childName) {
+        if(children == null) {
+            children = retrieveChildren(false);
+        }
+
         for(MyFile child : children) {
             if(child.getShortName().equals(childName))
                 return true;
@@ -215,6 +198,32 @@ public class MyFile {
             return "";
 
         return new PrettyPrint("Bytes", 1024L).print(abstractSize, 2);
+    }
+
+    // Returns array of child files' names.
+    public String[] getFiles() {
+        if(!isFolder)
+            return new String[0];
+
+        File[] childFiles;
+        try {
+            childFiles = thisFile.listFiles();
+        } catch (SecurityException e) {
+            System.out.println("Read access denied for " + path);
+            return new String[0];
+        }
+
+        if(childFiles == null || childFiles.length == 0) {
+            return new String[0];
+        } else {
+            return Arrays.stream(childFiles)
+                    .map(File::getName)
+                    .toArray(String[]::new);
+        }
+    }
+
+    public File getFileObject() {
+        return thisFile;
     }
 
     @Override
