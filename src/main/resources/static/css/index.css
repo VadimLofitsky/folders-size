@@ -11,21 +11,6 @@ body.waiting {
     cursor: wait !important;
 }
 
-@keyframes collapsing {
-    from {
-        /*transform: translateY(0%);*/
-        opacity: 1;
-    }
-    to {
-        /*transform: translateY(-100%);*/
-        opacity: 0;
-    }
-}
-
-table#filesShow.exiting {
-    animation: collapsing 1.8s ease-in;
-}
-
 table#filesShow {
     width: 75%;
     height: 100%;
@@ -80,24 +65,49 @@ table#filesShow td:first-child {
     text-align: center;
 }
 
-table#filesShow .logo {
+table#filesShow td#logo {
+    position: relative;
+    overflow: hidden;
+}
+
+table#filesShow td#logo > * {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 12%;
+    opacity: 1;
+}
+
+table#filesShow td#logo > .logo {
     color: #ff6a78;
+    opacity: 1;
 }
 
-@keyframes rotation {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+table#filesShow td#logo > .logo.hidden {
+    opacity: 0;
 }
 
-.rotating {
-    animation: rotation 2.5s ease-in-out infinite;
-    /*position: absolute;*/
-    /*left: -15px;*/
-    /*top: -15px;*/
+table#filesShow td#logo > *[class*="balance-scale"].balance-scale-hidden {
+    opacity: 0;
+}
+
+table#filesShow td#logo > *[class*="balance-scale"]:nth-child(2).fade-in-out {
+    animation-delay: 0s;
+}
+
+table#filesShow td#logo > *[class*="balance-scale"]:nth-child(3).fade-in-out {
+    opacity: 0;
+    animation-delay: calc(4s * .25);
+}
+
+table#filesShow td#logo > *[class*="balance-scale"]:nth-child(4).fade-in-out {
+    opacity: 0;
+    animation-delay: calc(4s * .5);
+}
+
+table#filesShow td#logo > *[class*="balance-scale"]:nth-child(5).fade-in-out {
+    opacity: 0;
+    animation-delay: calc(4s * .75);
 }
 
 table#filesShow tr#legend {

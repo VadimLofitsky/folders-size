@@ -1,0 +1,12 @@
+.fadeOut {
+    animation: frames-fade-it-out 1s linear;
+}
+
+@keyframes frames-fade-it-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
