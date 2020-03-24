@@ -44,7 +44,7 @@ function onBodyClick(clickEvent) {
         return false;
     }
 
-    rotateLogo(true);
+    waitingMode(true);
     getNewTable(path);
 }
 
@@ -53,11 +53,11 @@ function getNewTable(newPath) {
     // https://learn.javascript.ru/ajax-xmlhttprequest
 
     var xhr = new XMLHttpRequest();
-    xhr.open( "GET", "/", true);
+    xhr.open("GET", "/", true);
     xhr.setRequestHeader("folders-size-path", encodeURI(newPath));
     xhr.send(null);
 
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState != 4) return;
 
         if (xhr.status != 200) {
@@ -66,45 +66,50 @@ function getNewTable(newPath) {
             var element = document.createElement("html");
             element.innerHTML = xhr.responseText;
             document.querySelector("table#filesShow").outerHTML = element.querySelector("table#filesShow").outerHTML;
-            rotateLogo(false);  // not necessary. Table contents replaced
+            waitingMode(false);  // not necessary. Table contents replaced
         }
     }
 }
 
-function rotateLogoOld(turnOn) {
+
+function waitingMode(turnOn) {
+    makeBodyWaiting(turnOn);
+    balanceScaleAnimate(turnOn);
+    logoHide(turnOn);
+}
+
+function makeBodyWaiting(turnOn) {
     var bodyClassList = document.body.classList;
-    var logoClassList = document.querySelector(".logo").classList;
 
     if (turnOn) {
         bodyClassList.add("waiting");
-        logoClassList.add("anim-rotating");
     } else {
         bodyClassList.remove("waiting");
-        logoClassList.remove("anim-rotating");
     }
 }
 
-function rotateLogo(turnOn) {
-    var bodyClassList = document.body.classList;
-    var logoClassList = document.querySelector(".logo").classList;
+function balanceScaleAnimate(animate) {
     var els = document.querySelectorAll("table#filesShow td#logo>*[class*='balance-scale']");
 
-    if (turnOn) {
-        bodyClassList.add("waiting");
-
+    if (animate) {
         els.forEach(function (el) {
             el.classList.remove("balance-scale-hidden");
             el.classList.add("fade-in-out");
         });
-
-        logoClassList.add("hidden");
     } else {
-        bodyClassList.remove("waiting");
         els.forEach(function (el) {
             el.classList.add("balance-scale-hidden");
             el.classList.remove("fade-in-out");
         })
+    }
+}
 
+function logoHide(hideLogo) {
+    var logoClassList = document.querySelector(".logo").classList;
+
+    if (hideLogo) {
+        logoClassList.add("hidden");
+    } else {
         logoClassList.remove("hidden");
     }
 }

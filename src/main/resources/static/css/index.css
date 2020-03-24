@@ -5,6 +5,8 @@ body {
     background-color: gray;
     font-family: Consolas;
     font-family: "JetBrains Mono";
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 body.waiting {
