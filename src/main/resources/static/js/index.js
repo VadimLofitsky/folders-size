@@ -6,10 +6,9 @@ function pageInit() {
 
 function onBodyClick(clickEvent) {
     var element = window.event.srcElement;
-    if (element.tagName != "TD") {
+    if (element.tagName !== "TD") {
         return false;
     }
-
     var parent = element.parentElement;
     var path = parent.dataset.path;
     if (typeof path == "undefined") {
@@ -37,7 +36,7 @@ function getNewTable(newPath) {
         } else {
             var element = document.createElement("html");
             element.innerHTML = xhr.responseText;
-            element.querySelector("table#filesShow").outerHTML = element.querySelector("table#filesShow").outerHTML;
+            document.querySelector("table#filesShow").outerHTML = element.querySelector("table#filesShow").outerHTML;
             waitingMode(false);  // not necessary. Table contents replaced
         }
     }

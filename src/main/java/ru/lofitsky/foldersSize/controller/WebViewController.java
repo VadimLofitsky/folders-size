@@ -29,7 +29,6 @@ public class WebViewController {
                  @RequestHeader(required = false, defaultValue = "/", name = "folders-size-path") String path,
                  @RequestHeader(required = false, name = "folders-size-calculate-size") boolean calculate
     ) throws UnsupportedEncodingException {
-
         path = URLDecoder.decode(path, StandardCharsets.UTF_8.name());
 
         String timerName = "mainPerformance";

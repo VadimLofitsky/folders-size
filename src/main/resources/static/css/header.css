@@ -1,6 +1,6 @@
 div#header {
     width: 75%;
-    height: 100%;
+    max-height: 10%;
     margin-left: 12.5%;
     margin-right: 12.5%;
     position: fixed;
