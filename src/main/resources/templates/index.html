@@ -2,10 +2,15 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Folders size</title>
+    <title>Folders' size</title>
 
     <link rel="stylesheet" href="fontawesome/css/all.css">
+
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/anim-rotation.css">
+    <link rel="stylesheet" href="css/anim-fade-in-out.css">
+    <link rel="stylesheet" href="css/anim-fadeOut.css">
+    <link rel="stylesheet" href="css/anim-exiting.css">
 
     <script src="js/index.js"></script>
 </head>
@@ -13,8 +18,12 @@
 <body>
     <table id="filesShow" align="center">
         <tr>
-            <td>
+            <td id="logo">
                 <i class="logo fas fa-stream"></i>
+                <i class="fas fa-lg fa-balance-scale-left balance-scale-hidden"></i>
+                <i class="fas fa-lg fa-balance-scale balance-scale-hidden"></i>
+                <i class="fas fa-lg fa-balance-scale-right balance-scale-hidden"></i>
+                <i class="fas fa-lg fa-balance-scale balance-scale-hidden"></i>
             </td>
             <td id="pathShow"
                 colspan="3">

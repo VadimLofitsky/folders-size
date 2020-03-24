@@ -23,8 +23,8 @@ function exitButtonClick() {
         xhr.send(null);
 
         document.body.classList.add("waiting");
-        document.querySelector("table#filesShow").classList.add("exiting");
-        window.setTimeout(exitThis, 2000);
+        document.querySelector("table#filesShow").classList.add("anim-exiting");
+        window.setTimeout(exitThis, 1000);
     }
 }
 
@@ -71,15 +71,40 @@ function getNewTable(newPath) {
     }
 }
 
-function rotateLogo(turnOn) {
+function rotateLogoOld(turnOn) {
     var bodyClassList = document.body.classList;
     var logoClassList = document.querySelector(".logo").classList;
 
     if (turnOn) {
         bodyClassList.add("waiting");
-        logoClassList.add("rotating");
+        logoClassList.add("anim-rotating");
     } else {
         bodyClassList.remove("waiting");
-        logoClassList.remove("rotating");
+        logoClassList.remove("anim-rotating");
+    }
+}
+
+function rotateLogo(turnOn) {
+    var bodyClassList = document.body.classList;
+    var logoClassList = document.querySelector(".logo").classList;
+    var els = document.querySelectorAll("table#filesShow td#logo>*[class*='balance-scale']");
+
+    if (turnOn) {
+        bodyClassList.add("waiting");
+
+        els.forEach(function (el) {
+            el.classList.remove("balance-scale-hidden");
+            el.classList.add("fade-in-out");
+        });
+
+        logoClassList.add("hidden");
+    } else {
+        bodyClassList.remove("waiting");
+        els.forEach(function (el) {
+            el.classList.add("balance-scale-hidden");
+            el.classList.remove("fade-in-out");
+        })
+
+        logoClassList.remove("hidden");
     }
 }
