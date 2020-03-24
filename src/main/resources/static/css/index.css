@@ -9,12 +9,14 @@ body {
 }
 
 body.waiting {
-    cursor: wait !important;
+    cursor: wait;
 }
 
 table#filesShow {
+    position: relative;
     width: 75%;
     height: 100%;
+    top: 50px;
 }
 
 table#filesShow tr {
@@ -25,7 +27,7 @@ table#filesShow tr {
 table#filesShow td {
     overflow-x: hidden;
     padding: 0 3px 0 7px;
-    border: solid 0px transparent !important;
+    border: solid 0px transparent;
     border-radius: 3px;
 }
 
@@ -45,8 +47,8 @@ td#pathShow>span:nth-child(n+1) {
 }
 
 table#filesShow td:first-child {
-    border: none !important;
-    padding: 0 !important;
+    border: none;
+    padding: 0;
     text-align: center;
 }
 

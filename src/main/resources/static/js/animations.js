@@ -9,7 +9,7 @@ function makeBodyWaiting(turnOn) {
 }
 
 function balanceScaleAnimate(animate) {
-    var els = document.querySelectorAll("#logo>*[class*='balance-scale']");
+    var els = document.querySelectorAll("#status-icons>*[class*='balance-scale']");
 
     if (animate) {
         els.forEach(function (el) {
