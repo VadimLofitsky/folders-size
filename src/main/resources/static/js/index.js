@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", pageInit);
 
 function pageInit() {
     document.body.onclick = onBodyClick;
+
+    defineGlobalUtilFunctions();
 }
 
 function onBodyClick(clickEvent) {
@@ -36,8 +38,11 @@ function getNewTable(newPath) {
         } else {
             var element = document.createElement("html");
             element.innerHTML = xhr.responseText;
-            document.querySelector("table#filesShow").outerHTML = element.querySelector("table#filesShow").outerHTML;
-            waitingMode(false);  // not necessary. Table contents replaced
+            $("#header").outerHTML = $("#header", element).outerHTML;
+            $("table#filesShow").outerHTML = $("table#filesShow", element).outerHTML;
+
+            waitingMode(false);
+            fragmentizePath();
         }
     }
 }

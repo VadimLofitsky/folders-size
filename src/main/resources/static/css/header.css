@@ -71,7 +71,6 @@ div#header {
     position: absolute;
     right: 0;
 }
-
 #exitButton > * {
     color: #263238;
     cursor: pointer;
@@ -79,7 +78,20 @@ div#header {
     font-size: large;
     zoom: 1.5;
 }
-
 #exitButton > *:hover {
     color: darkred;
+}
+
+span.path-fragment {
+    border-radius: 3px;
+    border: thin transparent;
+
+    color: inherit;
+    background-color: inherit;
+}
+
+span.path-fragment:hover {
+    cursor: pointer;
+    color: cadetblue;
+    background-color: darkblue;
 }

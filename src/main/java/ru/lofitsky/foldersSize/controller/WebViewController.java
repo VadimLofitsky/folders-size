@@ -44,6 +44,7 @@ public class WebViewController {
         String duration = printer.print(timer.duration(timerName));
 
         model.addAttribute("path", path);
+        model.addAttribute("pathSeparator", filesService.pathSeparator);
         model.addAttribute("parentPath", parentPath);
         model.addAttribute("pathSize", pathPrettyPrintedSize);
         model.addAttribute("duration", duration);
