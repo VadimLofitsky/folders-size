@@ -8,18 +8,32 @@
 
     <link rel="stylesheet" href="css/font.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/anim-rotation.css">
     <link rel="stylesheet" href="css/anim-fade-in-out.css">
     <link rel="stylesheet" href="css/anim-fadeOut.css">
     <link rel="stylesheet" href="css/anim-exiting.css">
 
     <script src="js/index.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/exit-button.js"></script>
+    <script src="js/fragmentary-path.js"></script>
 </head>
 
 <body>
+<div id="header"
+     th:attr="data-path=${path}">
+        <span id="logo">
+            <i class="logo fas fa-stream"></i>
+            <i class="fas fa-lg fa-balance-scale-left balance-scale-hidden"></i>
+            <i class="fas fa-lg fa-balance-scale balance-scale-hidden"></i>
+            <i class="fas fa-lg fa-balance-scale-right balance-scale-hidden"></i>
+            <i class="fas fa-lg fa-balance-scale balance-scale-hidden"></i>
+        </span>
+</div>
     <table id="filesShow" align="center">
         <tr>
-            <td id="logo">
+            <td id="logoo">
                 <i class="logo fas fa-stream"></i>
                 <i class="fas fa-lg fa-balance-scale-left balance-scale-hidden"></i>
                 <i class="fas fa-lg fa-balance-scale balance-scale-hidden"></i>

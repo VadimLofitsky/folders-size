@@ -1,0 +1,70 @@
+div#header {
+    width: 75%;
+    height: 100%;
+    margin-left: 12.5%;
+    margin-right: 12.5%;
+    position: fixed;
+    top: 0;
+    border: solid thin lightgray;
+}
+
+#exitButton {
+    text-align: right;
+}
+
+#exitButton > * {
+    color: #263238;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: large;
+    zoom: 1.5;
+}
+
+#exitButton > *:hover {
+    color: darkred;
+}
+
+#logo {
+    position: relative;
+    overflow: hidden;
+}
+
+#logo > * {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 12%;
+    opacity: 1;
+}
+
+#logo > .logo {
+    color: #ff6a78;
+    opacity: 1;
+}
+
+#logo > .logo.hidden {
+    opacity: 0;
+}
+
+#logo > *[class*="balance-scale"].balance-scale-hidden {
+    opacity: 0;
+}
+
+#logo > *[class*="balance-scale"]:nth-child(2).fade-in-out {
+    animation-delay: 0s;
+}
+
+#logo > *[class*="balance-scale"]:nth-child(3).fade-in-out {
+    opacity: 0;
+    animation-delay: calc(4s * .25);
+}
+
+#logo > *[class*="balance-scale"]:nth-child(4).fade-in-out {
+    opacity: 0;
+    animation-delay: calc(4s * .5);
+}
+
+#logo > *[class*="balance-scale"]:nth-child(5).fade-in-out {
+    opacity: 0;
+    animation-delay: calc(4s * .75);
+}

@@ -35,22 +35,6 @@ td#pathShow {
     font-weight: bold;
 }
 
-td#exitButton {
-    text-align: right;
-}
-
-td#exitButton > * {
-    color: #263238;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: large;
-    zoom: 1.5;
-}
-
-td#exitButton > *:hover {
-    color: darkred;
-}
-
 table#filesShow tr:nth-child(2) ~ tr:hover {
     cursor: pointer;
     background-color: cadetblue;
@@ -64,51 +48,6 @@ table#filesShow td:first-child {
     border: none !important;
     padding: 0 !important;
     text-align: center;
-}
-
-table#filesShow td#logo {
-    position: relative;
-    overflow: hidden;
-}
-
-table#filesShow td#logo > * {
-    position: absolute;
-    left: 0;
-    top: 0;
-    margin: 12%;
-    opacity: 1;
-}
-
-table#filesShow td#logo > .logo {
-    color: #ff6a78;
-    opacity: 1;
-}
-
-table#filesShow td#logo > .logo.hidden {
-    opacity: 0;
-}
-
-table#filesShow td#logo > *[class*="balance-scale"].balance-scale-hidden {
-    opacity: 0;
-}
-
-table#filesShow td#logo > *[class*="balance-scale"]:nth-child(2).fade-in-out {
-    animation-delay: 0s;
-}
-
-table#filesShow td#logo > *[class*="balance-scale"]:nth-child(3).fade-in-out {
-    opacity: 0;
-    animation-delay: calc(4s * .25);
-}
-
-table#filesShow td#logo > *[class*="balance-scale"]:nth-child(4).fade-in-out {
-    opacity: 0;
-    animation-delay: calc(4s * .5);
-}
-
-table#filesShow td#logo > *[class*="balance-scale"]:nth-child(5).fade-in-out {
-    opacity: 0;
-    animation-delay: calc(4s * .75);
 }
 
 table#filesShow tr#legend {
