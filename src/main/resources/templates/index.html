@@ -17,11 +17,17 @@
                 <i class="logo fas fa-stream"></i>
             </td>
             <td id="pathShow"
-                colspan="4">
+                colspan="3">
                 <span th:text="${path}" />
                 <span th:text="${pathSize}" />
                 <span th:text="${duration}"
                       style="font-size: smaller; font-style: italic" />
+            </td>
+            <td id="exitButton">
+                <i class="far fa-times-circle"
+                   onmouseenter="exitButtonMouseEnter()"
+                   onmouseleave="exitButtonMouseLeave()"
+                   onclick="exitButtonClick()"></i>
             </td>
         </tr>
         <tr id="legend">
