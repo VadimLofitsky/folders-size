@@ -7,6 +7,25 @@ body {
     font-family: "JetBrains Mono";
 }
 
+body.waiting {
+    cursor: wait !important;
+}
+
+@keyframes collapsing {
+    from {
+        /*transform: translateY(0%);*/
+        opacity: 1;
+    }
+    to {
+        /*transform: translateY(-100%);*/
+        opacity: 0;
+    }
+}
+
+table#filesShow.exiting {
+    animation: collapsing 1.8s ease-in;
+}
+
 table#filesShow {
     width: 75%;
     height: 100%;
@@ -15,11 +34,6 @@ table#filesShow {
 table#filesShow tr {
     margin: 1px 0 1px 0;
     background-color: #777;
-}
-table#filesShow tr:nth-child(2) ~ tr:hover {
-    cursor: pointer;
-    background-color: cadetblue;
-    color: black;
 }
 
 table#filesShow td {
@@ -34,6 +48,28 @@ td#pathShow {
     font-size: larger;
     font-weight: bold;
 }
+
+td#exitButton {
+    text-align: right;
+}
+
+td#exitButton > * {
+    color: #263238;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: large;
+    zoom: 1.5;
+}
+
+td#exitButton > *:hover {
+    color: darkred;
+}
+
+table#filesShow tr:nth-child(2) ~ tr:hover {
+    cursor: pointer;
+    background-color: cadetblue;
+    color: black;
+}
 td#pathShow>span:nth-child(n+1) {
     margin-left: 15px;
 }
@@ -47,14 +83,7 @@ table#filesShow td:first-child {
 table#filesShow .logo {
     color: #ff6a78;
 }
-@-webkit-keyframes rotation {
-    from {
-        -webkit-transform: rotate(0deg);
-    }
-    to {
-        -webkit-transform: rotate(360deg);
-    }
-}
+
 @keyframes rotation {
     from {
         transform: rotate(0deg);

@@ -4,6 +4,34 @@ function pageInit() {
     document.body.onclick = onBodyClick;
 }
 
+function exitButtonMouseEnter() {
+    var element = window.event.srcElement;
+    element.classList.remove("far");
+    element.classList.add("fas");
+}
+
+function exitButtonMouseLeave() {
+    var element = window.event.srcElement;
+    element.classList.remove("fas");
+    element.classList.add("far");
+}
+
+function exitButtonClick() {
+    if (confirm("Really quit?")) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/exit", true);
+        xhr.send(null);
+
+        document.body.classList.add("waiting");
+        document.querySelector("table#filesShow").classList.add("exiting");
+        window.setTimeout(exitThis, 2000);
+    }
+}
+
+function exitThis() {
+    window.close();
+}
+
 function onBodyClick(clickEvent) {
     var element = window.event.srcElement;
     if (element.tagName != "TD") {
@@ -32,8 +60,6 @@ function getNewTable(newPath) {
     xhr.onreadystatechange = function() {
         if (xhr.readyState != 4) return;
 
-        // button.innerHTML = 'Готово!';
-
         if (xhr.status != 200) {
             console.log(xhr.status + ': ' + xhr.statusText);
         } else {
@@ -46,10 +72,14 @@ function getNewTable(newPath) {
 }
 
 function rotateLogo(turnOn) {
-    var classList = document.querySelector(".logo").classList;
+    var bodyClassList = document.body.classList;
+    var logoClassList = document.querySelector(".logo").classList;
+
     if (turnOn) {
-        classList.add("rotating");
+        bodyClassList.add("waiting");
+        logoClassList.add("rotating");
     } else {
-        classList.remove("rotating");
+        bodyClassList.remove("waiting");
+        logoClassList.remove("rotating");
     }
 }
