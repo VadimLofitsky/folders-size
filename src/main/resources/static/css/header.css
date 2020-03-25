@@ -95,3 +95,8 @@ span.path-fragment:hover {
     color: cadetblue;
     background-color: darkblue;
 }
+
+span.path-fragment.path-fragment-selected {
+    color: cadetblue;
+    background-color: darkblue;
+}

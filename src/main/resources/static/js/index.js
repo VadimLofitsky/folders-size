@@ -4,6 +4,8 @@ function pageInit() {
     document.body.onclick = onBodyClick;
 
     defineGlobalUtilFunctions();
+
+    window.osPathSeparator = "";
 }
 
 function onBodyClick(clickEvent) {
@@ -18,12 +20,18 @@ function onBodyClick(clickEvent) {
     }
 
     waitingMode(true);
-    getNewTable(path);
+    getNewContent(path);
 }
 
-function getNewTable(newPath) {
+function getNewContent(newPath) {
     // https://stackoverflow.com/questions/34319709/how-to-send-an-http-request-with-a-header-parameter
     // https://learn.javascript.ru/ajax-xmlhttprequest
+
+    if (osPathSeparator === "")
+        osPathSeparator = $("#header").dataset.pathSeparator;
+
+    if (newPath.charAt(newPath.length - 1) === ":")
+        newPath += osPathSeparator;
 
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/", true);

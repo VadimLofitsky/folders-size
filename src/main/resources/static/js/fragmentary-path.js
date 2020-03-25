@@ -1,33 +1,75 @@
 function fragmentizePath() {
-    var path = getCurrentPath();
-    var pathSeparator = $("#header").dataset.pathSeparator;
+    var path = $("#header").dataset.path;
 
-    var parts = path.split(pathSeparator);
+    var parts = path.split(osPathSeparator);
     var html = "";
-    var pathAccumulator = "";
 
     parts.forEach(function (part, index) {
         if (part === "") return;
 
         if (index === 0) {
-            pathAccumulator = part;
-            html = generateFragmentHtml(part, pathAccumulator);
+            html = generateFragmentHtml(part);
         } else {
-            pathAccumulator += pathSeparator + part;
-            html += pathSeparator + generateFragmentHtml(part, pathAccumulator);
+            html += osPathSeparator + generateFragmentHtml(part);
         }
     });
 
     $("#fragment-path").innerHTML = html;
 }
 
-function getCurrentPath() {
-    return document.querySelector("#header").dataset.path;
-}
-
-function generateFragmentHtml(part, accumulator) {
-    var html = "<span data-this-path='" + accumulator + "' class='path-fragment'>";
+function generateFragmentHtml(part) {
+    var html = "<span data-this-path='" + part + "' class='path-fragment'";
+    html += " onmouseenter='pathFragmentMouseEnter()'";
+    html += " onmouseleave='pathFragmentMouseLeave()'";
+    html += " onclick='pathFragmentClick()'>";
     html += part;
     html += "</span>";
     return html;
+}
+
+function pathFragmentMouseEnter() {
+    selectPathFragments(true, window.event.srcElement);
+    window.event.cancelBubble = false;
+    return true;
+}
+
+function pathFragmentMouseLeave() {
+    selectPathFragments(false, window.event.srcElement);
+    window.event.cancelBubble = false;
+    return true;
+}
+
+function pathFragmentClick() {
+    var el = window.event.srcElement;
+
+    while (el.nextSibling != null)
+        el.nextSibling.remove();
+
+    var newPath = el.parentElement.innerText;
+    getNewContent(newPath);
+
+    window.event.cancelBubble = false;
+    return true;
+}
+
+function selectPathFragments(toSelect, element) {
+    var parent = $("#fragment-path");
+
+    if (toSelect) {
+        var el = element.nextElementSibling;
+        while (el != null && el.classList.contains("path-fragment-selected")) {
+            el.classList.remove("path-fragment-selected");
+            el = el.nextElementSibling;
+        }
+
+        el = element.previousElementSibling;
+        while (el != null && !el.classList.contains("path-fragment-selected")) {
+            el.classList.add("path-fragment-selected");
+            el = el.previousElementSibling;
+        }
+    } else {
+        $$(".path-fragment-selected", parent).forEach(el = > {el.classList.remove("path-fragment-selected");
+    })
+        ;
+    }
 }

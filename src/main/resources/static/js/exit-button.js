@@ -11,7 +11,7 @@ function exitButtonMouseLeave() {
 }
 
 function exitButtonClick() {
-    if (confirm("Really quit?")) {
+    if (confirm("Really wanna quit?")) {
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "/exit", true);
         xhr.send(null);
