@@ -12,6 +12,7 @@ import ru.lofitsky.foldersSize.service.filesService.FilesService;
 import ru.lofitsky.foldersSize.util.ExecutionPerformance;
 import ru.lofitsky.foldersSize.util.PrettyPrint;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -27,8 +28,8 @@ public class WebViewController {
     @GetMapping("/")
     String index(Model model,
                  @RequestHeader(required = false, defaultValue = "/", name = "folders-size-path") String path,
-                 @RequestHeader(required = false, name = "folders-size-calculate-size") boolean calculate
-    ) throws UnsupportedEncodingException {
+                 @RequestHeader(required = false, name = "folders-size-calculate-size") boolean calculate,
+                 HttpServletResponse response) throws UnsupportedEncodingException {
 
         path = URLDecoder.decode(path, StandardCharsets.UTF_8.name());
 
@@ -45,11 +46,13 @@ public class WebViewController {
         String duration = printer.print(timer.duration(timerName));
 
         model.addAttribute("path", path);
+        model.addAttribute("pathSeparator", filesService.pathSeparator);
         model.addAttribute("parentPath", parentPath);
         model.addAttribute("pathSize", pathPrettyPrintedSize);
         model.addAttribute("duration", duration);
         model.addAttribute("filesList", filesList);
 
+        response.setHeader("Pragma", "no-cache");
         return "index";
     }
 

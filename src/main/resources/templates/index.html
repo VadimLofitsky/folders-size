@@ -6,38 +6,50 @@
 
     <link rel="stylesheet" href="fontawesome/css/all.css">
 
+    <link rel="stylesheet" href="css/font.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/anim-rotation.css">
     <link rel="stylesheet" href="css/anim-fade-in-out.css">
     <link rel="stylesheet" href="css/anim-fadeOut.css">
     <link rel="stylesheet" href="css/anim-exiting.css">
 
+    <script src="js/utils.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/exit-button.js"></script>
+    <script src="js/fragmentary-path.js"></script>
 </head>
 
 <body>
+<div id="header"
+     th:data-path="${path}"
+     th:data-path-separator="${pathSeparator}">
+    <div id="status-icons">
+        <i class="fas fa-lg fa-stream logo"></i>
+        <i class="fas fa-lg fa-balance-scale-left balance-scale-hidden"></i>
+        <i class="fas fa-lg fa-balance-scale balance-scale-hidden"></i>
+        <i class="fas fa-lg fa-balance-scale-right balance-scale-hidden"></i>
+        <i class="fas fa-lg fa-balance-scale balance-scale-hidden"></i>
+    </div>
+    <div id="exitButton">
+        <i class="far fa-times-circle"
+           onmouseenter="exitButtonMouseEnter()"
+           onmouseleave="exitButtonMouseLeave()"
+           onclick="exitButtonClick()"></i>
+    </div>
+    <div id="fragment-path"></div>
+</div>
     <table id="filesShow" align="center">
         <tr>
-            <td id="logo">
-                <i class="logo fas fa-stream"></i>
-                <i class="fas fa-lg fa-balance-scale-left balance-scale-hidden"></i>
-                <i class="fas fa-lg fa-balance-scale balance-scale-hidden"></i>
-                <i class="fas fa-lg fa-balance-scale-right balance-scale-hidden"></i>
-                <i class="fas fa-lg fa-balance-scale balance-scale-hidden"></i>
-            </td>
-            <td id="pathShow"
-                colspan="3">
-                <span th:text="${path}" />
+            <td></td>
+            <td id="pathShow" colspan="3">
+                <span/>
                 <span th:text="${pathSize}" />
                 <span th:text="${duration}"
                       style="font-size: smaller; font-style: italic" />
             </td>
-            <td id="exitButton">
-                <i class="far fa-times-circle"
-                   onmouseenter="exitButtonMouseEnter()"
-                   onmouseleave="exitButtonMouseLeave()"
-                   onclick="exitButtonClick()"></i>
-            </td>
+            <td></td>
         </tr>
         <tr id="legend">
             <td><i class="far fa-folder fa-xs"></i> / <i class="far fa-file-alt fa-xs"></i></td>
