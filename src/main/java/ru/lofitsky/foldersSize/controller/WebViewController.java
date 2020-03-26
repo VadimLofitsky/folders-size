@@ -48,6 +48,7 @@ public class WebViewController {
         model.addAttribute("path", path);
         model.addAttribute("pathSeparator", filesService.pathSeparator);
         model.addAttribute("parentPath", parentPath);
+        model.addAttribute("filesCount", filesList.length);
         model.addAttribute("pathSize", pathPrettyPrintedSize);
         model.addAttribute("duration", duration);
         model.addAttribute("filesList", filesList);

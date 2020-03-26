@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Folders' size</title>
@@ -44,10 +44,9 @@
         <tr>
             <td></td>
             <td id="pathShow" colspan="3">
-                <span/>
-                <span th:text="${pathSize}" />
-                <span th:text="${duration}"
-                      style="font-size: smaller; font-style: italic" />
+                <span><i><b>[[${filesCount}]]</b></i>&nbsp;<span style="font-size: small">file[[${filesCount==1 ? '' : 's'}]] here</span></span>
+                <span th:text="${pathSize}" style="font-size: smaller;" />
+                <span th:text="${duration}" style="ont-size: smaller; font-style: italic" />
             </td>
             <td></td>
         </tr>
