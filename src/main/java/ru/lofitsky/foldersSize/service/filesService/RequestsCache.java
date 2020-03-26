@@ -37,22 +37,25 @@ class RequestsCache {
         MyFile myFile = cache.get(path);
 
         if(myFile == null) {
-            // path has not been already cached. Look for its cached parent
+            // path has not been cached yet. Look for its cached parent
             String parentBranch = getParentBranch(path);
             if(parentBranch != null) {
                 // cache contains parent branch. Retrieve myFile from cache
                 myFile = cache.get(parentBranch);
 
                 String quotedPathSeparator = Pattern.quote(FilesService.pathSeparator);
-                String tail = path.replace(parentBranch, "").replaceFirst(quotedPathSeparator, "");
-                System.out.print("Splitting <" + parentBranch + "> by <" + quotedPathSeparator + ">: ");
-                String[] splited = tail.split(quotedPathSeparator);
+                String tail = path.replace(parentBranch, "");
 
-                for(String child : splited) {
+                if(tail.startsWith(FilesService.pathSeparator)) {
+                    tail = tail.replaceFirst(quotedPathSeparator, "");
+                }
+
+                String[] splitted = tail.split(quotedPathSeparator);
+
+                for(String child : splitted) {
                     myFile = myFile.getChild(child);
                 }
 
-                System.out.println("From cache: " + myFile.getPath());
             } else {
                 // cache does not contain parent branch. Store it.
                 myFile = add(path);
