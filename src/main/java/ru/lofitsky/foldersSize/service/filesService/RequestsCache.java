@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 class RequestsCache {
     private static RequestsCache instance;
@@ -24,7 +25,7 @@ class RequestsCache {
         cache.put(path, myFile);
 
         // Look for child branches and remove them if present.
-        List<String> children = getChildBranch(path);
+        List<String> children = getChildBranches(path);
         if(children != null) {
             children.forEach(cache::remove);
         }
@@ -41,9 +42,17 @@ class RequestsCache {
             if(parentBranch != null) {
                 // cache contains parent branch. Retrieve myFile from cache
                 myFile = cache.get(parentBranch);
-                for(String child : parentBranch.split(FilesService.pathSeparator)) {
+
+                String quotedPathSeparator = Pattern.quote(FilesService.pathSeparator);
+                String tail = path.replace(parentBranch, "").replaceFirst(quotedPathSeparator, "");
+                System.out.print("Splitting <" + parentBranch + "> by <" + quotedPathSeparator + ">: ");
+                String[] splited = tail.split(quotedPathSeparator);
+
+                for(String child : splited) {
                     myFile = myFile.getChild(child);
                 }
+
+                System.out.println("From cache: " + myFile.getPath());
             } else {
                 // cache does not contain parent branch. Store it.
                 myFile = add(path);
@@ -69,15 +78,15 @@ class RequestsCache {
     }
 
     /**
-     * Looks for child branches which stored in cache. Returns them if found, or null otherwise.
+     * Looks for child branches stored in cache. Returns them if found, or null otherwise.
      *
      * @param parentPath child branch String path, for which parent is being looking for.
      * @return list of child branches, or null if none.
      */
-    private List<String> getChildBranch(String parentPath) {
+    private List<String> getChildBranches(String parentPath) {
         List<String> children = new ArrayList<>();
         for(String cachedPath : cache.keySet()) {
-            if(cachedPath.contains(parentPath))
+            if(cachedPath.contains(parentPath) && !cachedPath.equals(parentPath))
                 children.add(cachedPath);
         }
 

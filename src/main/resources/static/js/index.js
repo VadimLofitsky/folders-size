@@ -19,13 +19,16 @@ function onBodyClick(clickEvent) {
         return false;
     }
 
-    waitingMode(true);
     getNewContent(path);
 }
 
-function getNewContent(newPath) {
+function getNewContent(newPath, calculateSize) {
     // https://stackoverflow.com/questions/34319709/how-to-send-an-http-request-with-a-header-parameter
     // https://learn.javascript.ru/ajax-xmlhttprequest
+
+    waitingMode(true);
+
+    if(calculateSize == null || typeof calculateSize !== 'boolean') calculateSize = false;
 
     if (osPathSeparator === "")
         osPathSeparator = $("#header").dataset.pathSeparator;
@@ -36,6 +39,7 @@ function getNewContent(newPath) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/", true);
     xhr.setRequestHeader("folders-size-path", encodeURI(newPath));
+    xhr.setRequestHeader("folders-size-calculate-size", calculateSize);
     xhr.send(null);
 
     xhr.onreadystatechange = function () {
@@ -44,6 +48,7 @@ function getNewContent(newPath) {
         if (xhr.status != 200) {
             console.log(xhr.status + ': ' + xhr.statusText);
         } else {
+            // xhr.getResponseHeader();
             var element = document.createElement("html");
             element.innerHTML = xhr.responseText;
             $("#header").outerHTML = $("#header", element).outerHTML;
@@ -59,4 +64,8 @@ function waitingMode(turnOn) {
     makeBodyWaiting(turnOn);
     balanceScaleAnimate(turnOn);
     logoHide(turnOn);
+}
+
+function calculateHere() {
+    getNewContent($("#header").dataset.path, true);
 }
