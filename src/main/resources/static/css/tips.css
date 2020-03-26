@@ -1,0 +1,36 @@
+#tips {
+    z-index: 10000;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(100, 100, 100, .5);
+    opacity: 1;
+}
+#tips.tips-animated-hide {
+    opacity: 0;
+    animation-fill-mode: forwards;
+    animation: tips-hide 3s ease-in;
+}
+@keyframes tips-hide {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+#tips.hidden {
+    display: none;
+}
+
+#tips>.tip {
+    max-width: max-content;
+    padding: 20px;
+    border: solid thin  black;
+    border-radius: 10px;
+    background-color: lightyellow;
+}

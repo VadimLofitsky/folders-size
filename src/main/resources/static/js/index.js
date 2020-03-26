@@ -3,9 +3,11 @@ document.addEventListener("DOMContentLoaded", pageInit);
 function pageInit() {
     document.body.onclick = onBodyClick;
 
+    window.osPathSeparator = "";
+
     defineGlobalUtilFunctions();
 
-    window.osPathSeparator = "";
+    hideTips();
 }
 
 function onBodyClick(clickEvent) {
