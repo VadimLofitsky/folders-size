@@ -36,7 +36,7 @@ public class WebViewController {
         String timerName = "mainPerformance";
         timer.start(timerName);
         MyFile file = filesService.getMyFile(path, calculate);
-        String pathPrettyPrintedSize = MyFile.getPrettyPrintedSize(file.getSize());
+        String pathPrettyPrintedSize = calculate ? MyFile.getPrettyPrintedSize(file.getSize()) : "";
         FileSizeEntry[] filesList = file.getChildren();
         timer.stop(timerName);
 

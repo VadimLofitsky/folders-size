@@ -37,11 +37,19 @@ div#header {
 
 #status-icons > .logo {
     color: #ff6a78;
+    border: solid thick transparent;
     opacity: 1;
+    z-index: 1000;
 }
-
 #status-icons > .logo.hidden {
     opacity: 0;
+}
+#status-icons > .logo:hover:not(.hidden) {
+    cursor: pointer;
+    border: solid thick #707070;
+    border-radius: 5px;
+    background-color: #707070;
+    zoom: 1.1;
 }
 
 #status-icons > *[class*="balance-scale"].balance-scale-hidden {
@@ -79,7 +87,7 @@ div#header {
     zoom: 1.5;
 }
 #exitButton > *:hover {
-    color: darkred;
+    color: #c80000;
 }
 
 span.path-fragment {

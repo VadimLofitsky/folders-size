@@ -28,18 +28,25 @@ public class MyFile {
     }
 
     public MyFile(String fullPath) {
-//        System.out.println("MyFile(String) constructor: fullPath = <" + fullPath + ">");
+        if((fullPath == null) || "".equals(fullPath)) {
+            throw new NullPointerException("Trying to create MyFile object for empty path string.");
+        }
+
         thisFile = new File(fullPath);
+
+        path = fullPath;
 
         if(thisFile.getParentFile() == null) {
             parent = FileSystemRootElement.getRootInstance();
+            if(fullPath.endsWith(pathSeparator)) {
+                path = fullPath.substring(0, fullPath.length() - pathSeparator.length());
+            }
         } else {
             parent = new MyFile(thisFile.getParent());
         }
 
-        path = fullPath;
-        isFolder = thisFile.isDirectory();
 
+        isFolder = thisFile.isDirectory();
         isTopLevel = thisFile.getParent() == null;
 
         files = getFiles();

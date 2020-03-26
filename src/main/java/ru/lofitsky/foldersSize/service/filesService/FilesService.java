@@ -21,11 +21,16 @@ public class FilesService {
 
     public MyFile getMyFile(String path, boolean calculateSize) {
         if((path == null) || "".equals(path) || root.getPath().equals(path)) {
+            if(calculateSize) {
+                root.calculateSize();
+            }
+
             return root;
         }
 
-        if(calculateSize)
+        if(calculateSize) {
             return getCalculatedFile(path);
+        }
 
         return new MyFile(path);
     }

@@ -68,8 +68,8 @@ function selectPathFragments(toSelect, element) {
             el = el.previousElementSibling;
         }
     } else {
-        $$(".path-fragment-selected", parent).forEach(el = > {el.classList.remove("path-fragment-selected");
-    })
-        ;
+        $$(".path-fragment-selected", parent).forEach(function (el) {
+            el.classList.remove("path-fragment-selected");
+        });
     }
 }

@@ -23,7 +23,6 @@ public class FileSystemRootElement extends MyFile {
         List<MyFile> rootDirectories = new ArrayList<>();
         for(Path p : FileSystems.getDefault().getRootDirectories()) {
             rootDirectories.add(new MyFile(p.toString(), this));
-            System.out.println(p.toString());
         }
 
         children = rootDirectories.toArray(new MyFile[0]);
