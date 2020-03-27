@@ -75,18 +75,18 @@ div#header {
     animation-delay: calc(1s * .75);
 }
 
-#exitButton {
+#exit-button {
     position: absolute;
     right: 0;
 }
-#exitButton > * {
+#exit-button > * {
     color: #263238;
     cursor: pointer;
     font-weight: bold;
     font-size: large;
     zoom: 1.5;
 }
-#exitButton > *:hover {
+#exit-button > *:hover {
     color: #c80000;
 }
 

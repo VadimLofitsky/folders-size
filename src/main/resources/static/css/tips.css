@@ -1,0 +1,59 @@
+#tips {
+    z-index: 10000;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(100, 100, 100, .5);
+}
+#tips.tips-animated-hide {
+    animation: tips-hide .5s ease-in;
+    animation-fill-mode: forwards;
+}
+@keyframes tips-hide {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+#tips.hidden {
+    display: none;
+}
+
+#tips>.tip {
+    position: absolute;
+    max-width: max-content;
+    padding: 20px;
+    border: solid thin black;
+    border-radius: 10px;
+    background-color: lightyellow;
+
+    opacity: 0;
+}
+#tips>.tip.tip-animated {
+    animation: tip-show 5.5s step-start;
+    animation-fill-mode: forwards;
+}
+#tips>.tip:nth-child(1) {
+    animation-delay: 0s;
+}
+#tips>.tip:nth-child(2) {
+    animation-delay: 2s;
+}
+#tips>.tip:nth-child(3) {
+    animation-delay: 4s;
+}
+
+@keyframes tip-show {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 1;
+    }
+}

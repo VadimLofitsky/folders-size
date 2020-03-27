@@ -13,12 +13,14 @@
     <link rel="stylesheet" href="css/anim-fade-in-out.css">
     <link rel="stylesheet" href="css/anim-fadeOut.css">
     <link rel="stylesheet" href="css/anim-exiting.css">
+    <link rel="stylesheet" href="css/tips.css">
 
     <script src="js/utils.js"></script>
     <script src="js/index.js"></script>
-    <script src="js/animations.js"></script>
+    <script src="js/buttons-animations.js"></script>
     <script src="js/exit-button.js"></script>
     <script src="js/fragmentary-path.js"></script>
+    <script src="js/tips.js"></script>
 </head>
 
 <body>
@@ -32,7 +34,7 @@
         <i class="fas fa-lg fa-balance-scale-right balance-scale-hidden"></i>
         <i class="fas fa-lg fa-balance-scale balance-scale-hidden"></i>
     </div>
-    <div id="exitButton">
+    <div id="exit-button">
         <i class="far fa-times-circle"
            onmouseenter="exitButtonMouseEnter()"
            onmouseleave="exitButtonMouseLeave()"
@@ -73,5 +75,18 @@
             <td class="file-size" th:text="${file.getSize()!=-1 ? file.getSize() : ''}"></td>
         </tr>
     </table>
+    <div id="tips">
+        <div class="tip tip-animated" data-dest="#status-icons>.logo" data-fa-num="1">
+            To calculate files' sizes click&nbsp;<i class="fas fa-lg fa-stream logo"></i>&nbsp;in desired current directory.<br>
+            While waiting the results, the balance scale&nbsp;<i class="fas fa-balance-scale fa-lg balance-scale-hidden"></i>&nbsp;is displayed.
+        </div>
+        <div class="tip tip-animated" data-dest="#fragment-path" data-fa-num="1">
+            Click some of the ancestors here&nbsp;<i class="far fa-hand-point-up fa-2x"></i>&nbsp;and navigate to it.
+        </div>
+        <div class="tip tip-animated" data-dest="#exit-button" data-fa-num="1">
+            <div style="text-align: center;">&nbsp;<i class="far fa-hand-point-up fa-2x"></i><br></div>
+            Finished? Push the <s>tempo</s><i class="fas fa-x3 fa-grin-wink"></i>&nbsp;button!
+        </div>
+    </div>
 </body>
 </html>

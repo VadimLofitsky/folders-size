@@ -1,11 +1,15 @@
 document.addEventListener("DOMContentLoaded", pageInit);
 
 function pageInit() {
-    document.body.onclick = onBodyClick;
-
     defineGlobalUtilFunctions();
 
-    window.osPathSeparator = "";
+    document.body.onclick = onBodyClick;
+
+    window.osPathSeparator = $("#header").dataset.pathSeparator;
+
+    fragmentizePath();
+
+    hideTips();
 }
 
 function onBodyClick(clickEvent) {
@@ -29,9 +33,6 @@ function getNewContent(newPath, calculateSize) {
     waitingMode(true);
 
     if(calculateSize == null || typeof calculateSize !== 'boolean') calculateSize = false;
-
-    if (osPathSeparator === "")
-        osPathSeparator = $("#header").dataset.pathSeparator;
 
     if (newPath.charAt(newPath.length - 1) === ":")
         newPath += osPathSeparator;
