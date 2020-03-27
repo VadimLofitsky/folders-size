@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded", pageInit);
 
 function pageInit() {
+    defineGlobalUtilFunctions();
+
     document.body.onclick = onBodyClick;
 
-    window.osPathSeparator = "";
+    window.osPathSeparator = $("#header").dataset.pathSeparator;
 
-    defineGlobalUtilFunctions();
+    fragmentizePath();
 
     hideTips();
 }
@@ -31,9 +33,6 @@ function getNewContent(newPath, calculateSize) {
     waitingMode(true);
 
     if(calculateSize == null || typeof calculateSize !== 'boolean') calculateSize = false;
-
-    if (osPathSeparator === "")
-        osPathSeparator = $("#header").dataset.pathSeparator;
 
     if (newPath.charAt(newPath.length - 1) === ":")
         newPath += osPathSeparator;
