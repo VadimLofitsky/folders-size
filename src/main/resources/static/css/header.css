@@ -90,6 +90,12 @@ div#header {
     color: #c80000;
 }
 
+#fragment-path {
+    border-radius: 5px;
+    background: linear-gradient(90deg, transparent 40%, #fff5 50%, transparent 60%) -200% 0 no-repeat;
+    background-size: 200% 100%;
+}
+
 span.path-fragment {
     border-radius: 3px;
     border: thin transparent;
