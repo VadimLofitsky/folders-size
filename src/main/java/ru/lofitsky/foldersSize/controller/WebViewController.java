@@ -54,6 +54,7 @@ public class WebViewController {
         model.addAttribute("filesList", filesList);
 
         response.setHeader("Pragma", "no-cache");
+        response.setHeader("folders-size-isCalculated", String.valueOf(file.getSize() != -1));
         return "index";
     }
 

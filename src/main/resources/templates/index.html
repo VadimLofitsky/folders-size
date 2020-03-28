@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/anim-exiting.css">
     <link rel="stylesheet" href="css/tips.css">
     <link rel="stylesheet" href="css/anim-bg-gradient.css">
+    <link rel="stylesheet" href="css/theHaviest.css">
 
     <script src="js/utils.js"></script>
     <script src="js/index.js"></script>
@@ -22,6 +23,7 @@
     <script src="js/exit-button.js"></script>
     <script src="js/fragmentary-path.js"></script>
     <script src="js/tips.js"></script>
+    <script src="js/theHeaviest.js"></script>
 </head>
 
 <body>
@@ -63,7 +65,7 @@
         <tr th:attr="data-path=${parentPath}">
             <td colspan="5">..</td>
         </tr>
-        <tr th:each="file : ${filesList}" th:attr="data-path=${file.getPath()}">
+        <tr th:each="file : ${filesList}" th:attr="data-path=${file.getPath()}" class="files">
             <td class="file-type">
                 <i th:classappend="${file.isFolder() ? 'far fa-folder' : 'far fa-file-alt'}"></i>
             </td>
