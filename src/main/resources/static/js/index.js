@@ -8,6 +8,7 @@ function pageInit() {
     window.osPathSeparator = $("#header").dataset.pathSeparator;
 
     fragmentizePath();
+    turnOnFragmPathSplash();
 
     hideTips();
 }

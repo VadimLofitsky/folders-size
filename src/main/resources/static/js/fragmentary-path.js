@@ -73,3 +73,16 @@ function selectPathFragments(toSelect, element) {
         });
     }
 }
+
+function turnOnFragmPathSplash() {
+    window.setTimeout(() => {
+        window.setInterval(() => {
+            $("#fragment-path").classList.add("bg-animated");
+
+            $("#fragment-path").addEventListener("animationend", (ev) => {
+                if(ev.animationName === "bg-frames")
+                    $("#fragment-path").classList.remove("bg-animated");
+            }, {once: true});
+        }, 15000);
+    }, 7000);
+}
