@@ -50,7 +50,8 @@ function getNewContent(newPath, calculateSize) {
         if (xhr.status != 200) {
             console.log(xhr.status + ': ' + xhr.statusText);
         } else {
-            // xhr.getResponseHeader();
+            window.isCalculated = xhr.getResponseHeader("folders-size-isCalculated").toLowerCase() === "true";
+
             var element = document.createElement("html");
             element.innerHTML = xhr.responseText;
             $("#header").outerHTML = $("#header", element).outerHTML;
@@ -58,6 +59,9 @@ function getNewContent(newPath, calculateSize) {
 
             waitingMode(false);
             fragmentizePath();
+
+            if(window.isCalculated)
+                markUpTheHeaviest();
         }
     }
 }
