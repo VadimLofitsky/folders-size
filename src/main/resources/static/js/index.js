@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", pageInit);
 
 function pageInit() {
-    defineGlobalUtilFunctions();
+    defineGlobalUtilsFunctions();
 
     document.body.onclick = onBodyClick;
 
