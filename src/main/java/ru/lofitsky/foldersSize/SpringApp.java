@@ -5,17 +5,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class SpringApp {
-    private static String dockerMachineIP = System.getenv("docker_machine_ip");
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(SpringApp.class, args);
 
-        System.out.println("Docker machine IP = " + dockerMachineIP);
+        String host = System.getenv("docker_machine_ip");
+        System.out.println("Docker machine IP = " + host);
 
-//        String shellCommand = getShellCommand();
-        String url = "http://" + dockerMachineIP + ":8080/";
+        if(host == null) {
+            host = "localhost";
+        }
 
-//        Process process = Runtime.getRuntime().exec(shellCommand + " " + url);
+        String shellCommand = getShellCommand();
+        String url = "http://" + host + ":8080/";
+
+        Process process = Runtime.getRuntime().exec(shellCommand + " " + url);
     }
 
     private static String getShellCommand() throws Exception {
