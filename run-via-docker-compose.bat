@@ -1,4 +1,4 @@
-rem @echo off
+ @echo off
 rem Steps:
 rem 1. (Re)build jar-file of the project
 rem 2. If successfully, copy it to docker-compose folder of the project
@@ -30,14 +30,15 @@ rem starts the containers in the background and leaves them running.
 rem docker-compose up -d
 rem docker-compose run --rm --publish 8080:8080 web-app
 docker-compose run --rm --publish 8080:8080 web-app
-if errorlevel 1 (echo Error occured while running docker-compose. Exiting
-    goto exit)
+if errorlevel 1 (echo Error occurred while running docker-compose. Exiting : goto exit)
 rem cd ..
 echo Ready
 
 echo Opening view in browser
 for /F %%a in ('docker-machine ip') do (set docker_machine_ip=%%a)
 explorer http://%docker_machine_ip%:8080
+
+docker rmi web-app-image
 
 :exit
 cd ..

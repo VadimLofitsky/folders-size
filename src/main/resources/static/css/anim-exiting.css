@@ -1,5 +1,6 @@
 .anim-exiting {
     animation: frames-exiting 0.99s ease-out;
+    animation-fill-mode: forwards;
 }
 
 @keyframes frames-exiting {
