@@ -1,5 +1,6 @@
 package ru.lofitsky.foldersSize.MyFile;
 
+import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -10,30 +11,42 @@ import java.util.List;
 public class FileSystemRootElement extends MyFile {
     private static FileSystemRootElement rootInstance;
 
-    private FileSystemRootElement() {
-        isTopLevel = true;
-        parent = null;
-        thisFile = null;
-        size = -1;
-        isFolder = true;
-        path = MyFile.fileSystemRootElementPathPseudonym;
+    static {
+        rootInstance=new FileSystemRootElement();
     }
 
-    private void updateChildren() {
-        List<MyFile> rootDirectories = new ArrayList<>();
-        for(Path p : FileSystems.getDefault().getRootDirectories()) {
-            rootDirectories.add(new MyFile(p.toString(), this));
+    private FileSystemRootElement() {
+        parent = null;
+        size = -1L;
+        isTopLevel = true;
+        isFolder = true;
+
+        String[] roots = retrieveRootDirs();
+
+        if(roots.length == 1) {
+            // Single root directory, like / in 'nix(nux) or single drive in Windows
+            path = roots[0];
+            thisNioFile = new File(path);
+            files = getFiles();
+        } else {
+            // Multiple root directories. Use pseudonym for the root element's path
+            path = MyFile.fileSystemRootElementPathPseudonym;
+            thisNioFile = null;
+            files = roots;
+        }
+    }
+
+    private String[] retrieveRootDirs() {
+        List<String> rootDirectories = new ArrayList<>();
+        Iterable<Path> roots = FileSystems.getDefault().getRootDirectories();
+        for(Path p : roots) {
+            rootDirectories.add(p.toString());
         }
 
-        children = rootDirectories.toArray(new MyFile[0]);
+        return rootDirectories.toArray(new String[0]);
     }
 
     public static FileSystemRootElement getRootInstance() {
-        if(rootInstance == null) {
-            rootInstance = new FileSystemRootElement();
-            rootInstance.updateChildren();
-        }
-
         return rootInstance;
     }
 
@@ -58,7 +71,7 @@ public class FileSystemRootElement extends MyFile {
         setSortOrder(order);
 
         if(children == null)
-            updateChildren();
+            children = retrieveChildren(false);
 
         if(children.length == 0) {
             FileSizeEntry[] emptyFileSizeEntry = {new FileSizeEntry(path, getSize(), isFolder, self, getShortName())};

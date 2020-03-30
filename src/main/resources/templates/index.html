@@ -19,6 +19,7 @@
 
     <script src="js/utils.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/intro.js"></script>
     <script src="js/buttons-animations.js"></script>
     <script src="js/exit-button.js"></script>
     <script src="js/fragmentary-path.js"></script>
@@ -50,8 +51,8 @@
             <td></td>
             <td id="pathShow" colspan="3">
                 <span><i><b>[[${filesCount}]]</b></i>&nbsp;<span style="font-size: small">file[[${filesCount==1 ? '' : 's'}]] here</span></span>
-                <span th:text="${pathSize}" style="font-size: smaller;" />
-                <span th:text="${duration}" style="ont-size: smaller; font-style: italic" />
+                <span th:text="${pathSize}" style="font-size: smaller;"></span>
+                <span th:text="${duration}" style="font-size: x-small; font-style: italic"></span>
             </td>
             <td></td>
         </tr>
@@ -73,26 +74,26 @@
                 th:text="${file.getShortName()}"
                 th:classappend="${file.isFolder() ? 'is-folder' : 'is-file'}"
                 th:style="${'background: linear-gradient(to right, red, transparent ' + (100*file.getRatioToParent()) + '%);'}"></td>
-            <td class="file-size-ratio" th:text="${#numbers.formatPercent(file.getRatioToParent(), 1, 2)}"></td>
+            <td class="file-size-ratio" th:text="${isCalculated ? #numbers.formatPercent(file.getRatioToParent(), 1, 2) : ''}"></td>
             <td class="file-size-pretty" th:text="${file.getPrettyPrintedSize()}"></td>
             <td class="file-size" th:text="${file.getSize()!=-1 ? file.getSize() : ''}"></td>
         </tr>
     </table>
     <div id="tips">
         <div class="tip tip-animated" data-dest="#status-icons>.logo" data-fa-num="1">
-            To calculate files' sizes click&nbsp;<i class="fas fa-lg fa-stream logo"></i>&nbsp;inside desired directory.<br>
+            To calculate files' sizes click&nbsp;<i class="fas fa-lg fa-stream logo"></i>&nbsp;inside the directory.<br>
             While waiting the results, the balance scale&nbsp;<i class="fas fa-balance-scale fa-lg balance-scale-hidden"></i>&nbsp;is displayed.
         </div>
-        <div class="tip tip-animated" data-dest="#fragment-path" data-fa-num="1">
-            Click some of the ancestors here&nbsp;<i class="far fa-hand-point-up fa-2x"></i>&nbsp;to navigate to it.
+        <div class="tip" data-dest="#fragment-path" data-fa-num="1">
+            Click some of the ancestors here&nbsp;<i class="far fa-hand-point-up fa-2x"></i>&nbsp;to navigate to it
         </div>
-        <div class="tip tip-animated" data-dest="#exit-button" data-fa-num="1">
-            <div style="text-align: center;">&nbsp;<i class="far fa-hand-point-up fa-2x"></i></div>
-            Finished? Push the <s>tempo</s><i class="fas fa-x3 fa-grin-wink"></i>&nbsp;button!
-        </div>
-        <div class="tip tip-animated" data-dest="#filesShow tr:last-child .file-size-ratio" data-fa-num="1">
-<!--            <div style="text-align: center;">&nbsp;<i class="far fa-hand-point-up fa-2x"></i></div>-->
+        <div class="tip" data-dest="#filesShow tr:last-child .file-size-ratio" data-fa-num="1">
             Files with a total size of more than 80% are <span class="files-heaviest">highlighted</span>&nbsp;<i class="far fa-hand-point-up fa-2x"></i>
+        </div>
+        <div class="tip" data-dest="#exit-button" data-fa-num="1">
+            <div style="text-align: center;">&nbsp;<i class="far fa-hand-point-up fa-2x"></i></div>
+            Finished? Push the <s>tempo</s><i class="fas fa-x3 fa-grin-wink"></i>&nbsp;button!<br>
+            The tab will close itself<br> and the the application will be terminated
         </div>
     </div>
 </body>

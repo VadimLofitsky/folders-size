@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  web-app:
+    container_name: web-app
+    environment:
+      - POSTGRES_HOST=book-store-db
+      - POSTGRES_PORT=5432
+      - DOCKER_MACHINE_IP=${DOCKER_MACHINE_IP}
+    image: web-app-image
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    tty: true
