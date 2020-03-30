@@ -1,29 +1,3 @@
-function hideTips() {
-    var tipsContainer = $("#tips");
-
-    tipsContainer.addEventListener("animationstart", (ev) => {
-        if(ev.animationName === "tip-show")
-            placeTips(tipsContainer);
-    }, false);
-
-    var tipAnimationsFinished = 0;
-    var tipsNumber = $$(".tip", tipsContainer).length;
-
-    tipsContainer.addEventListener("animationend", (ev) => {
-        if(ev.animationName === "tip-show") {
-            ++tipAnimationsFinished;
-            }
-
-        if (tipAnimationsFinished == tipsNumber) {
-            tipsContainer.classList.add("tips-animated-hide");
-        }
-
-        if(ev.animationName === "tips-hide") {
-            tipsContainer.classList.add("hidden");
-        }
-    }, false);
-}
-
 function placeTips(container) {
     var tips = $$(".tip", container);
 
@@ -58,14 +32,3 @@ function getElementCenter(element) {
         y: rect.top + rect.height/2
     };
 }
-
-function getHorizLeftOffset(parent, child) {
-    return child.getBoundingClientRect().left - parent.getBoundingClientRect().left;
-}
-function getHorizCenterOffset(parent, child) {
-    return getElementCenter(child).x - getElementCenter(parent).x;
-}
-function getHorizRightOffset(parent, child) {
-    return parent.getBoundingClientRect().right - child.getBoundingClientRect().right;
-}
-

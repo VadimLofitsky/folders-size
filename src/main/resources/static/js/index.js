@@ -10,7 +10,7 @@ function pageInit() {
     fragmentizePath();
     turnOnFragmPathSplash();
 
-    hideTips();
+    intro();
 }
 
 function onBodyClick(clickEvent) {
