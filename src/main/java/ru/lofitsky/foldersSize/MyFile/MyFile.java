@@ -112,7 +112,7 @@ public class MyFile {
         } else {
             String thisPath = getPath() + pathSeparator;
             return Arrays.stream(files)
-//                    .parallel()
+                    .parallel()
                     .map(path -> new MyFile(thisPath + path, this))
                     .peek(myFile -> {
                         if(performSizeCalculation)
@@ -211,10 +211,8 @@ public class MyFile {
         if(!isFolder)
             return new String[0];
 
-//        File[] childFiles;
         String[] childFiles;
         try {
-//            childFiles = thisNioFile.listFiles();
             childFiles = thisNioFile.list();
         } catch (SecurityException e) {
             System.out.println("Read access denied for " + path);
@@ -225,9 +223,6 @@ public class MyFile {
             return new String[0];
         } else {
             return childFiles;
-//            return Arrays.stream(childFiles)
-//                    .map(File::getName)
-//                    .toArray(String[]::new);
         }
     }
 
