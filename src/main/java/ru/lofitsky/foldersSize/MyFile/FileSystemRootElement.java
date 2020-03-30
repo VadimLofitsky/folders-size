@@ -11,6 +11,10 @@ import java.util.List;
 public class FileSystemRootElement extends MyFile {
     private static FileSystemRootElement rootInstance;
 
+    static {
+        rootInstance=new FileSystemRootElement();
+    }
+
     private FileSystemRootElement() {
         parent = null;
         size = -1L;
@@ -50,7 +54,7 @@ public class FileSystemRootElement extends MyFile {
     public static FileSystemRootElement getRootInstance() {
         if(rootInstance == null) {
             System.out.println("getRootInstance()");
-            rootInstance = new FileSystemRootElement();
+//            rootInstance = new FileSystemRootElement();
         }
 
         return rootInstance;
