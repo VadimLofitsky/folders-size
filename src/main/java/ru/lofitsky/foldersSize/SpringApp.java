@@ -26,10 +26,10 @@ public class SpringApp {
             try {
                 process.exec(shellCommand + " " + url);
             } catch (IOException e) {
-                System.out.println(e.getMessage() + "\nOpen browser manually: " + url);
+                System.out.println("!! " + e.getMessage() + "\nOpen browser manually: " + url);
             }
         } else {
-            System.out.println("Getting runtime error. Open browser manually: " + url);
+            System.out.println("!! Got runtime error. Open in browser manually: " + url);
         }
     }
 
