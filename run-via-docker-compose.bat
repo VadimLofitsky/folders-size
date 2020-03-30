@@ -34,9 +34,12 @@ if errorlevel 1 (echo Error occurred while running docker-compose. Exiting : got
 rem cd ..
 echo Ready
 
-echo Opening view in browser
+echo getting Docker machine IP
 for /F %%a in ('docker-machine ip') do (set docker_machine_ip=%%a)
-explorer http://%docker_machine_ip%:8080
+set docker_machine_ip
+
+rem echo Opening view in browser
+rem explorer http://%docker_machine_ip%:8080
 
 docker rmi web-app-image>nul
 

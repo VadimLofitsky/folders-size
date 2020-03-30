@@ -3,6 +3,8 @@ package ru.lofitsky.foldersSize;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.IOException;
+
 @SpringBootApplication
 public class SpringApp {
 
@@ -19,7 +21,16 @@ public class SpringApp {
         String shellCommand = getShellCommand();
         String url = "http://" + host + ":8080/";
 
-        Process process = Runtime.getRuntime().exec(shellCommand + " " + url);
+        Runtime process = Runtime.getRuntime();
+        if(process != null) {
+            try {
+                process.exec(shellCommand + " " + url);
+            } catch (IOException e) {
+                System.out.println(e.getMessage() + "\nOpen browser manually: " + url);
+            }
+        } else {
+            System.out.println("Getting runtime error. Open browser manually: " + url);
+        }
     }
 
     private static String getShellCommand() throws Exception {
