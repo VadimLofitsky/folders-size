@@ -38,7 +38,7 @@ echo Opening view in browser
 for /F %%a in ('docker-machine ip') do (set docker_machine_ip=%%a)
 explorer http://%docker_machine_ip%:8080
 
-docker rmi web-app-image
+docker rmi web-app-image>nul
 
 :exit
 cd ..
