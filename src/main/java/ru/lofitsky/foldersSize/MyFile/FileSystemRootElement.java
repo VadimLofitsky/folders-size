@@ -28,13 +28,10 @@ public class FileSystemRootElement extends MyFile {
             path = roots[0];
             thisNioFile = new File(path);
             files = getFiles();
-            System.out.println("Single root dirs. Files: " + Arrays.toString(files));
-            children = retrieveChildren(false);
         } else {
             // Multiple root directories. Use pseudonym for the root element's path
             path = MyFile.fileSystemRootElementPathPseudonym;
             thisNioFile = null;
-            System.out.println("Multiple root dirs. Files: " + Arrays.toString(roots));
             files = roots;
         }
     }
@@ -42,9 +39,7 @@ public class FileSystemRootElement extends MyFile {
     private String[] retrieveRootDirs() {
         List<String> rootDirectories = new ArrayList<>();
         Iterable<Path> roots = FileSystems.getDefault().getRootDirectories();
-        System.out.println("retrieveRoots(): Roots: ");
         for(Path p : roots) {
-            System.out.println("\t[" + p + "]");
             rootDirectories.add(p.toString());
         }
 
@@ -52,11 +47,6 @@ public class FileSystemRootElement extends MyFile {
     }
 
     public static FileSystemRootElement getRootInstance() {
-        if(rootInstance == null) {
-            System.out.println("getRootInstance()");
-//            rootInstance = new FileSystemRootElement();
-        }
-
         return rootInstance;
     }
 
@@ -81,7 +71,7 @@ public class FileSystemRootElement extends MyFile {
         setSortOrder(order);
 
         if(children == null)
-            retrieveChildren(false);
+            children = retrieveChildren(false);
 
         if(children.length == 0) {
             FileSizeEntry[] emptyFileSizeEntry = {new FileSizeEntry(path, getSize(), isFolder, self, getShortName())};
