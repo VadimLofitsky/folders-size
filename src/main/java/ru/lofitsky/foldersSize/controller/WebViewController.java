@@ -45,6 +45,9 @@ public class WebViewController {
         PrettyPrint printer = new PrettyPrint("ns", 1000L, 6);
         String duration = printer.print(timer.duration(timerName));
 
+        String isCalculated = String.valueOf(file.getSize() != -1);
+
+        model.addAttribute("isCalculated", isCalculated);
         model.addAttribute("path", path);
         model.addAttribute("pathSeparator", filesService.pathSeparator);
         model.addAttribute("parentPath", parentPath);
@@ -54,7 +57,7 @@ public class WebViewController {
         model.addAttribute("filesList", filesList);
 
         response.setHeader("Pragma", "no-cache");
-        response.setHeader("folders-size-isCalculated", String.valueOf(file.getSize() != -1));
+        response.setHeader("folders-size-isCalculated", isCalculated);
         return "index";
     }
 

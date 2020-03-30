@@ -17,37 +17,36 @@ public class MyFile {
 
     boolean isTopLevel;
     MyFile parent;
-    File thisFile;
+    File thisNioFile;
     long size = -1;
     boolean isFolder;
     String path;
     MyFile[] children;
     String[] files;
 
-    MyFile() {
-    }
+    MyFile() {}
 
     public MyFile(String fullPath) {
         if((fullPath == null) || "".equals(fullPath)) {
             throw new NullPointerException("Trying to create MyFile object for empty path string.");
         }
 
-        thisFile = new File(fullPath);
+        thisNioFile = new File(fullPath);
 
         path = fullPath;
 
-        if(thisFile.getParentFile() == null) {
+        if(thisNioFile.getParentFile() == null) {
             parent = FileSystemRootElement.getRootInstance();
-            if(fullPath.endsWith(pathSeparator)) {
+            if(fullPath.endsWith(pathSeparator) && fullPath.length()>pathSeparator.length()) {
                 path = fullPath.substring(0, fullPath.length() - pathSeparator.length());
             }
         } else {
-            parent = new MyFile(thisFile.getParent());
+            parent = new MyFile(thisNioFile.getParent());
         }
 
 
-        isFolder = thisFile.isDirectory();
-        isTopLevel = thisFile.getParent() == null;
+        isFolder = thisNioFile.isDirectory();
+        isTopLevel = thisNioFile.getParent() == null;
 
         files = getFiles();
     }
@@ -98,13 +97,13 @@ public class MyFile {
                 size += child.calculateSize();
             }
         } else {
-            size = thisFile.length();
+            size = thisNioFile.length();
         }
 
         return size;
     }
 
-    private MyFile[] retrieveChildren(boolean performSizeCalculation) {
+    protected MyFile[] retrieveChildren(boolean performSizeCalculation) {
         if(!isFolder)
             return new MyFile[0];
 
@@ -113,7 +112,7 @@ public class MyFile {
         } else {
             String thisPath = getPath() + pathSeparator;
             return Arrays.stream(files)
-                    .parallel()
+//                    .parallel()
                     .map(path -> new MyFile(thisPath + path, this))
                     .peek(myFile -> {
                         if(performSizeCalculation)
@@ -170,7 +169,7 @@ public class MyFile {
     }
 
     public String getShortName() {
-        String shortName = thisFile.getName();
+        String shortName = thisNioFile.getName();
 
         return "".equals(shortName) ? path : shortName;
     }
@@ -184,7 +183,7 @@ public class MyFile {
     }
 
     public String getParentFolder() {
-        return thisFile.getParent();
+        return thisNioFile.getParent();
     }
 
     public boolean hasChild(String childName) {
@@ -212,9 +211,11 @@ public class MyFile {
         if(!isFolder)
             return new String[0];
 
-        File[] childFiles;
+//        File[] childFiles;
+        String[] childFiles;
         try {
-            childFiles = thisFile.listFiles();
+//            childFiles = thisNioFile.listFiles();
+            childFiles = thisNioFile.list();
         } catch (SecurityException e) {
             System.out.println("Read access denied for " + path);
             return new String[0];
@@ -223,14 +224,15 @@ public class MyFile {
         if(childFiles == null || childFiles.length == 0) {
             return new String[0];
         } else {
-            return Arrays.stream(childFiles)
-                    .map(File::getName)
-                    .toArray(String[]::new);
+            return childFiles;
+//            return Arrays.stream(childFiles)
+//                    .map(File::getName)
+//                    .toArray(String[]::new);
         }
     }
 
     public File getFileObject() {
-        return thisFile;
+        return thisNioFile;
     }
 
     @Override
@@ -255,7 +257,7 @@ public class MyFile {
     public String toString() {
         return "MyFile{" +
                 (isFolder ? "[" : "") +
-                "path='" + thisFile.getParent() + '\'' +
+                "path='" + thisNioFile.getParent() + '\'' +
                 ", name='" + getShortName() + '\'' +
                 (isFolder ? "]" : "") +
                 ", size=" + size +
