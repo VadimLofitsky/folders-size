@@ -6,6 +6,7 @@ services:
     environment:
       - POSTGRES_HOST=book-store-db
       - POSTGRES_PORT=5432
+      - DOCKER_MACHINE_IP=${DOCKER_MACHINE_IP}
     image: web-app-image
     build:
       context: .

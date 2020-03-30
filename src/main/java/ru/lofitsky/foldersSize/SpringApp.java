@@ -11,7 +11,7 @@ public class SpringApp {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(SpringApp.class, args);
 
-        String host = System.getenv("docker_machine_ip");
+        String host = System.getenv("DOCKER_MACHINE_IP");
         System.out.println("Docker machine IP = " + host);
 
         if(host == null) {

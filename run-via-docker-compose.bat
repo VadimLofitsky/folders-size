@@ -24,6 +24,10 @@ echo Done
 echo Starting services...
 cd docker-compose
 
+echo getting Docker machine IP
+for /F %%a in ('docker-machine ip') do (set DOCKER_MACHINE_IP=%%a)
+set docker_machine_ip
+
 rem The `docker-compose up` command aggregates the output of each container. When
 rem the command exits, all containers are stopped. Running `docker-compose up -d`
 rem starts the containers in the background and leaves them running.
@@ -32,11 +36,8 @@ rem docker-compose run --rm --publish 8080:8080 web-app
 docker-compose run --rm --publish 8080:8080 web-app
 if errorlevel 1 (echo Error occurred while running docker-compose. Exiting : goto exit)
 rem cd ..
-echo Ready
+rem echo Ready
 
-echo getting Docker machine IP
-for /F %%a in ('docker-machine ip') do (set docker_machine_ip=%%a)
-set docker_machine_ip
 
 rem echo Opening view in browser
 rem explorer http://%docker_machine_ip%:8080
