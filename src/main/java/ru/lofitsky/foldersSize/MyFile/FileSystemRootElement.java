@@ -4,8 +4,6 @@ import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 public class FileSystemRootElement extends MyFile {
@@ -58,37 +56,6 @@ public class FileSystemRootElement extends MyFile {
     @Override
     public String getParentPath() {
         return path;
-    }
-
-    @Override
-    public FileSizeEntry[] getChildren() {
-        return getChildren(sortOrder);
-    }
-
-    @Override
-    public FileSizeEntry[] getChildren(int order) {
-        MyFile self = this;
-        setSortOrder(order);
-
-        if(children == null)
-            children = retrieveChildren(false);
-
-        if(children.length == 0) {
-            FileSizeEntry[] emptyFileSizeEntry = {new FileSizeEntry(path, getSize(), isFolder, self, getShortName())};
-            return emptyFileSizeEntry;
-        }
-
-        Comparator<MyFile> comparator = Comparator.comparingLong(MyFile::getSize);
-        if(sortOrder == SortOrder.REVERSED) {
-            comparator = comparator.reversed();
-        }
-
-        FileSizeEntry[] fileEntries = Arrays.stream(children)
-                .sorted(comparator)
-                .map(file -> new FileSizeEntry(file.path, file.getSize(), file.isFolder, self, file.getShortName()))
-                .toArray(FileSizeEntry[]::new);
-
-        return fileEntries;
     }
 
     @Override

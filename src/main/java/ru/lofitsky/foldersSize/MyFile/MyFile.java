@@ -5,15 +5,12 @@ import ru.lofitsky.foldersSize.util.PrettyPrint;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.util.Arrays;
-import java.util.Comparator;
 
-public class MyFile {
+public class MyFile implements Comparable {
 
     public static final String pathSeparator = FileSystems.getDefault().getSeparator();
 
     static final String fileSystemRootElementPathPseudonym = "/";
-
-    static int sortOrder = SortOrder.REVERSED;
 
     boolean isTopLevel;
     MyFile parent;
@@ -53,22 +50,6 @@ public class MyFile {
     public MyFile(String fullPath, MyFile parent) {
         this(fullPath);
         this.parent = parent;
-    }
-
-    public static int getSortOrder() {
-        return sortOrder;
-    }
-
-    public static void setSortOrder(int sortOrder) {
-        MyFile.sortOrder = sortOrder;
-    }
-
-    public static void setNaturalSortOrder() {
-        sortOrder = SortOrder.NATURAL;
-    }
-
-    public static void setReversedSortOrder() {
-        sortOrder = SortOrder.REVERSED;
     }
 
     public boolean isTopLevel() {
@@ -123,13 +104,12 @@ public class MyFile {
     }
 
     public FileSizeEntry[] getChildren() {
-        return getChildren(sortOrder);
+        return getChildren(false);
     }
-    public FileSizeEntry[] getChildren(int order) {
+    public FileSizeEntry[] getChildren(boolean calculated) {
         MyFile self = this;
-        setSortOrder(order);
 
-        if (children == null) {
+        if(children == null) {
             children = retrieveChildren(false);
         }
 
@@ -138,13 +118,8 @@ public class MyFile {
             return emptyFileSizeEntry;
         }
 
-        Comparator<MyFile> comparator = Comparator.comparingLong(MyFile::getSize);
-        if (sortOrder == SortOrder.REVERSED) {
-            comparator = comparator.reversed();
-        }
-
         FileSizeEntry[] fileEntries = Arrays.stream(children)
-                .sorted(comparator)
+                .sorted()
                 .map(file -> new FileSizeEntry(file.path, file.getSize(), file.isFolder, self, file.getShortName()))
                 .toArray(FileSizeEntry[]::new);
 
@@ -237,8 +212,8 @@ public class MyFile {
 
         MyFile myFile = (MyFile) o;
 
-        if(isFolder != myFile.isFolder) return false;
-        return path.equals(myFile.path);
+        // Two MyFile objects equals each other only if both are the same type (folder/file) and have equal pathes
+        return (isFolder == myFile.isFolder) && path.equals(myFile.path);
     }
 
     @Override
@@ -257,5 +232,17 @@ public class MyFile {
                 (isFolder ? "]" : "") +
                 ", size=" + size +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        MyFile y = (MyFile) o;
+        int comparisionSizes = Long.valueOf(y.size).compareTo(size);    // <- reverse order!
+        if(comparisionSizes != 0) {
+            return comparisionSizes;
+        } else {
+            int comparisionIsFolders = Boolean.compare(y.isFolder, isFolder);    // <- reverse order!
+            return comparisionIsFolders != 0 ? comparisionIsFolders : path.compareTo(y.path);
+        }
     }
 }
