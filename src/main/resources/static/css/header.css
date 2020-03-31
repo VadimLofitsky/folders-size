@@ -1,37 +1,47 @@
 div#header {
     width: 75%;
-    height: 35px;
     margin-left: 12.5%;
     margin-right: 12.5%;
     position: fixed;
     top: 0;
+    padding-top: 5px;
 
     z-index: 999;
-    background-color: inherit;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: gray;
 
     border: solid thin transparent;
     border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
-#header > * {
-    display: inline-block;
-    position: absolute;
-    top: 5px;
+
+
+#header > .header-row {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    text-align: center;
+    margin-bottom: 3px;
 }
+
+#header > .header-row > * {
+    text-align: center;
+}
+
+
 
 #status-icons {
-    position: absolute;
-    left: 5px;
+    flex-grow: 1;
 }
 
 #status-icons > * {
     position: absolute;
-    left: 5px;
-    top: 5px;
+    left: 0;
     opacity: 1;
 }
 
@@ -51,7 +61,10 @@ div#header {
     background-color: #707070;
     zoom: 1.1;
 }
-
+#status-icons > *[class*="balance-scale"] {
+    position: absolute;
+    left: 0;
+}
 #status-icons > *[class*="balance-scale"].balance-scale-hidden {
     opacity: 0;
 }
@@ -75,22 +88,10 @@ div#header {
     animation-delay: calc(1s * .75);
 }
 
-#exit-button {
-    position: absolute;
-    right: 0;
-}
-#exit-button > * {
-    color: #263238;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: large;
-    zoom: 1.5;
-}
-#exit-button > *:hover {
-    color: #c80000;
-}
+
 
 #fragment-path {
+    flex-grow: 18;
     border-radius: 5px;
     background: linear-gradient(90deg, transparent 40%, #fff5 50%, transparent 60%) -200% 0 no-repeat;
     background-size: 200% 100%;
@@ -113,4 +114,67 @@ span.path-fragment:hover {
 span.path-fragment.path-fragment-selected {
     color: cadetblue;
     background-color: darkblue;
+}
+
+
+
+#exit-button {
+    flex-grow: 1;
+    text-align: right;
+}
+#exit-button > * {
+    color: #263238;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: large;
+    zoom: 1.5;
+}
+#exit-button > *:hover {
+    color: #c80000;
+}
+
+
+
+#legend {
+    flex-grow: 1;
+
+    font-weight: bold;
+    font-size: larger;
+
+    display: flex;
+}
+#legend>* {
+    display: inline-block;
+    background-color: darkgray;
+
+    overflow-x: hidden;
+    border: solid 1px gray;
+    border-radius: 5px;
+}
+#legend>*:first-child {
+    font-size: small;
+    vertical-align: middle;
+}
+
+
+
+#stats {
+    flex-grow: 1;
+    font-size: larger;
+    font-weight: bold;
+}
+
+#stats>span:nth-child(n+1) {
+    margin-left: 15px;
+}
+
+#levelUp {
+    flex-grow: 1;
+    font-size: x-large;
+    border-radius: 5px;
+}
+#levelUp:hover {
+    cursor: pointer;
+    background-color: cadetblue;
+    color: black;
 }

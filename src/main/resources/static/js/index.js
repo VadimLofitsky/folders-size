@@ -1,30 +1,46 @@
-document.addEventListener("DOMContentLoaded", pageInit);
+document.addEventListener("DOMContentLoaded", (ev) => {
+    defineGlobalUtilsFunctions();
+    pageInit();
+    intro();
+});
 
 function pageInit() {
-    defineGlobalUtilsFunctions();
-
-    document.body.onclick = onBodyClick;
+    $("table#filesShow").onclick = onTableClick;
+    $("#levelUp").onclick = onLevelupClick;
 
     window.osPathSeparator = $("#header").dataset.pathSeparator;
 
     fragmentizePath();
     turnOnFragmPathSplash();
-
-    intro();
+    alignLegend();
 }
 
-function onBodyClick(clickEvent) {
+function onTableClick(clickEvent) {
+    if(!window.isIntroFinished) return false;
+
     var element = window.event.srcElement;
-    if (element.tagName !== "TD") {
-        return false;
-    }
-    var parent = element.parentElement;
-    var path = parent.dataset.path;
-    if (typeof path == "undefined") {
-        return false;
+    if(element.tagName === "TD") {
+        var path = element.parentElement.dataset.path;
+        if (typeof path !== "undefined") {
+            getNewContent(path);
+        }
     }
 
-    getNewContent(path);
+    return false;
+}
+
+function onLevelupClick(clickEvent) {
+    if(!window.isIntroFinished) return false;
+
+    var element = window.event.srcElement;
+    if(element.id === "levelUp") {
+        var path = element.dataset.path;
+        if (typeof path !== "undefined") {
+            getNewContent(path);
+        }
+    }
+
+    return false;
 }
 
 function getNewContent(newPath, calculateSize) {
@@ -58,7 +74,7 @@ function getNewContent(newPath, calculateSize) {
             $("table#filesShow").outerHTML = $("table#filesShow", element).outerHTML;
 
             waitingMode(false);
-            fragmentizePath();
+            pageInit();
 
             if(window.isCalculated)
                 markUpTheHeaviest();
@@ -74,4 +90,15 @@ function waitingMode(turnOn) {
 
 function calculateHere() {
     getNewContent($("#header").dataset.path, true);
+}
+
+function alignLegend() {
+    var legendSpans = $$("#legend>span");
+
+    $$("table#filesShow tr:first-child>td").forEach((cell, index) => {
+        legendSpans[index].style.width = cell.getBoundingClientRect().width + "px";
+    });
+
+    var headerRect = $("#header").getBoundingClientRect();
+    $("table#filesShow").style.top = (headerRect.y + headerRect.height) + "px";
 }
