@@ -49,7 +49,7 @@ function pathFragmentClick() {
     getNewContent(newPath);
 
     window.event.cancelBubble = false;
-    return true;
+    return false;
 }
 
 function selectPathFragments(toSelect, element) {

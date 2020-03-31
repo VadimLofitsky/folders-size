@@ -136,15 +136,20 @@ span.path-fragment.path-fragment-selected {
 
 
 #legend {
-    border: solid;
     flex-grow: 1;
 
-    background-color: darkgray;
     font-weight: bold;
     font-size: larger;
+
+    display: flex;
 }
 #legend>* {
-    border: solid;
+    display: inline-block;
+    background-color: darkgray;
+
+    overflow-x: hidden;
+    border: solid 1px gray;
+    border-radius: 5px;
 }
 #legend>*:first-child {
     font-size: small;
@@ -166,6 +171,7 @@ span.path-fragment.path-fragment-selected {
 #levelUp {
     flex-grow: 1;
     font-size: x-large;
+    border-radius: 5px;
 }
 #levelUp:hover {
     cursor: pointer;
