@@ -28,44 +28,49 @@
 </head>
 
 <body>
-<div id="header"
-     th:data-path="${path}"
-     th:data-path-separator="${pathSeparator}">
-    <div id="status-icons">
-        <i class="fas fa-lg fa-stream logo" onclick="calculateHere()"></i>
-        <i class="fas fa-lg fa-balance-scale-left balance-scale-hidden"></i>
-        <i class="fas fa-lg fa-balance-scale balance-scale-hidden"></i>
-        <i class="fas fa-lg fa-balance-scale-right balance-scale-hidden"></i>
-        <i class="fas fa-lg fa-balance-scale balance-scale-hidden"></i>
-    </div>
-    <div id="exit-button">
-        <i class="far fa-times-circle"
-           onmouseenter="exitButtonMouseEnter()"
-           onmouseleave="exitButtonMouseLeave()"
-           onclick="exitButtonClick()"></i>
-    </div>
-    <div id="fragment-path"></div>
-</div>
-    <table id="filesShow" align="center">
-        <tr>
-            <td></td>
-            <td id="pathShow" colspan="3">
+    <div id="header"
+         th:data-path="${path}"
+         th:data-path-separator="${pathSeparator}">
+        <div class="header-row">
+            <div id="status-icons">
+                <i class="fas fa-lg fa-stream logo" onclick="calculateHere()"></i>
+                <i class="fas fa-lg fa-balance-scale-left balance-scale-hidden"></i>
+                <i class="fas fa-lg fa-balance-scale balance-scale-hidden"></i>
+                <i class="fas fa-lg fa-balance-scale-right balance-scale-hidden"></i>
+                <i class="fas fa-lg fa-balance-scale balance-scale-hidden"></i>
+            </div>
+            <div id="fragment-path"></div>
+            <div id="exit-button">
+                <i class="far fa-times-circle"
+                   onmouseenter="exitButtonMouseEnter()"
+                   onmouseleave="exitButtonMouseLeave()"
+                   onclick="exitButtonClick()"></i>
+            </div>
+        </div>
+        <div class="header-row">
+            <div id="stats">
                 <span><i><b>[[${filesCount}]]</b></i>&nbsp;<span style="font-size: small">file[[${filesCount==1 ? '' : 's'}]] here</span></span>
                 <span th:text="${pathSize}" style="font-size: smaller;"></span>
                 <span th:text="${duration}" style="font-size: x-small; font-style: italic"></span>
-            </td>
-            <td></td>
-        </tr>
-        <tr id="legend">
-            <td><i class="far fa-folder fa-xs"></i> / <i class="far fa-file-alt fa-xs"></i></td>
-            <td>Filename</td>
-            <td class="file-size">Ratio to parent size</td>
-            <td>Size</td>
-            <td>Size in bytes</td>
-        </tr>
-        <tr th:attr="data-path=${parentPath}">
-            <td colspan="5">..</td>
-        </tr>
+            </div>
+        </div>
+        <div class="header-row">
+            <div id="legend">
+                <span><i class="far fa-folder fa-xs"></i> / <i class="far fa-file-alt fa-xs"></i></span>
+                <span>Filename</span>
+                <span class="file-size">Ratio to parent size</span>
+                <span>Size</span>
+                <span>Size in bytes</span>
+            </div>
+        </div>
+        <div class="header-row">
+            <div id="levelUp" th:attr="data-path=${parentPath}">
+                <span>..</span>
+            </div>
+        </div>
+    </div>
+
+    <table id="filesShow" align="center">
         <tr th:each="file : ${filesList}" th:attr="data-path=${file.getPath()}" class="files">
             <td class="file-type">
                 <i th:classappend="${file.isFolder() ? 'far fa-folder' : 'far fa-file-alt'}"></i>
@@ -79,6 +84,7 @@
             <td class="file-size" th:text="${file.getSize()!=-1 ? file.getSize() : ''}"></td>
         </tr>
     </table>
+
     <div id="tips">
         <div class="tip tip-animated" data-dest="#status-icons>.logo" data-fa-num="1">
             To calculate files' sizes click&nbsp;<i class="fas fa-lg fa-stream logo"></i>&nbsp;inside the directory.<br>

@@ -14,14 +14,16 @@ function pageInit() {
 }
 
 function onBodyClick(clickEvent) {
+    if(!window.isIntroFinished) return false;
+
     var element = window.event.srcElement;
-    if (element.tagName !== "TD") {
-        return false;
-    }
-    var parent = element.parentElement;
-    var path = parent.dataset.path;
-    if (typeof path == "undefined") {
-        return false;
+    if((element.tagName === "TD") || (element.id === "levelUp")) {
+        var parent = (element.id === "levelUp") ? element : element.parentElement;
+
+        var path = parent.dataset.path;
+        if (typeof path == "undefined") {
+            return false;
+        }
     }
 
     getNewContent(path);

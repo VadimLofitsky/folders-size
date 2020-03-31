@@ -48,7 +48,7 @@ function tipsAnimationEndHandler(ev) {
     }
 
     if(ev.animationName === "tips-hide") {
-        tipsContainer.classList.add("hidden");
-        tipsContainer.removeEventListener("animationend", tipsAnimationEndHandler);
+        tipsContainer.parentElement.removeChild(tipsContainer);
+        window.isIntroFinished = true;
     }
 }

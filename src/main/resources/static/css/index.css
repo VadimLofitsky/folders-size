@@ -12,16 +12,22 @@ body.waiting {
     cursor: wait;
 }
 
+
 table#filesShow {
     position: relative;
     width: 75%;
     height: 100%;
-    top: 50px;
+    top: 115px;
 }
 
 table#filesShow tr {
     margin: 1px 0 1px 0;
     background-color: #777;
+}
+table#filesShow tr:hover {
+    cursor: pointer;
+    background-color: cadetblue;
+    color: black;
 }
 
 table#filesShow td {
@@ -31,35 +37,10 @@ table#filesShow td {
     border-radius: 3px;
 }
 
-td#pathShow {
-    text-align: center;
-    font-size: larger;
-    font-weight: bold;
-}
-
-table#filesShow tr:nth-child(2) ~ tr:hover {
-    cursor: pointer;
-    background-color: cadetblue;
-    color: black;
-}
-td#pathShow>span:nth-child(n+1) {
-    margin-left: 15px;
-}
-
 table#filesShow td:first-child {
     border: none;
     padding: 0;
     text-align: center;
-}
-
-table#filesShow tr#legend {
-    background-color: darkgray;
-    font-weight: bold;
-    font-size: larger;
-    text-align: center;
-}
-table#filesShow tr#legend>td:first-child {
-    font-size: small;
 }
 
 table#filesShow td.file-type {
