@@ -1,0 +1,15 @@
+.anim-exiting {
+    animation: frames-exiting 0.99s ease-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes frames-exiting {
+    from {
+        /*transform: translateY(0%);*/
+        opacity: 1;
+    }
+    to {
+        /*transform: translateY(-100%);*/
+        opacity: 0;
+    }
+}

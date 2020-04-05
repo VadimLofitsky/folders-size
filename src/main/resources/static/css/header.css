@@ -1,0 +1,180 @@
+div#header {
+    width: 75%;
+    margin-left: 12.5%;
+    margin-right: 12.5%;
+    position: fixed;
+    top: 0;
+    padding-top: 5px;
+
+    z-index: 999;
+    background-color: gray;
+
+    border: solid thin transparent;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+
+
+#header > .header-row {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    text-align: center;
+    margin-bottom: 3px;
+}
+
+#header > .header-row > * {
+    text-align: center;
+}
+
+
+
+#status-icons {
+    flex-grow: 1;
+}
+
+#status-icons > * {
+    position: absolute;
+    left: 0;
+    opacity: 1;
+}
+
+#status-icons > .logo {
+    color: #ff6a78;
+    border: solid thick transparent;
+    opacity: 1;
+    z-index: 1000;
+}
+#status-icons > .logo.hidden {
+    opacity: 0;
+}
+#status-icons > .logo:hover:not(.hidden) {
+    cursor: pointer;
+    border: solid thick #707070;
+    border-radius: 5px;
+    background-color: #707070;
+    zoom: 1.1;
+}
+#status-icons > *[class*="balance-scale"] {
+    position: absolute;
+    left: 0;
+}
+#status-icons > *[class*="balance-scale"].balance-scale-hidden {
+    opacity: 0;
+}
+
+#status-icons > *[class*="balance-scale"]:nth-child(2).fade-in-out {
+    animation-delay: 0s;
+}
+
+#status-icons > *[class*="balance-scale"]:nth-child(3).fade-in-out {
+    opacity: 0;
+    animation-delay: calc(1s * .25);
+}
+
+#status-icons > *[class*="balance-scale"]:nth-child(4).fade-in-out {
+    opacity: 0;
+    animation-delay: calc(1s * .5);
+}
+
+#status-icons > *[class*="balance-scale"]:nth-child(5).fade-in-out {
+    opacity: 0;
+    animation-delay: calc(1s * .75);
+}
+
+
+
+#fragment-path {
+    flex-grow: 18;
+    border-radius: 5px;
+    background: linear-gradient(90deg, transparent 40%, #fff5 50%, transparent 60%) -200% 0 no-repeat;
+    background-size: 200% 100%;
+}
+
+span.path-fragment {
+    border-radius: 3px;
+    border: thin transparent;
+
+    color: inherit;
+    background-color: inherit;
+}
+
+span.path-fragment:hover {
+    cursor: pointer;
+    color: cadetblue;
+    background-color: darkblue;
+}
+
+span.path-fragment.path-fragment-selected {
+    color: cadetblue;
+    background-color: darkblue;
+}
+
+
+
+#exit-button {
+    flex-grow: 1;
+    text-align: right;
+}
+#exit-button > * {
+    color: #263238;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: large;
+    zoom: 1.5;
+}
+#exit-button > *:hover {
+    color: #c80000;
+}
+
+
+
+#legend {
+    flex-grow: 1;
+
+    font-weight: bold;
+    font-size: larger;
+
+    display: flex;
+}
+#legend>* {
+    display: inline-block;
+    background-color: darkgray;
+
+    overflow-x: hidden;
+    border: solid 1px gray;
+    border-radius: 5px;
+}
+#legend>*:first-child {
+    font-size: small;
+    vertical-align: middle;
+}
+
+
+
+#stats {
+    flex-grow: 1;
+    font-size: larger;
+    font-weight: bold;
+}
+
+#stats>span:nth-child(n+1) {
+    margin-left: 15px;
+}
+
+#levelUp {
+    flex-grow: 1;
+    font-size: x-large;
+    border-radius: 5px;
+}
+#levelUp:hover {
+    cursor: pointer;
+    background-color: cadetblue;
+    color: black;
+}

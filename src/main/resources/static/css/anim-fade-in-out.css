@@ -1,0 +1,18 @@
+.fade-in-out {
+    animation: frames-fade-in-out 1s linear infinite;
+}
+
+@keyframes frames-fade-in-out {
+    0% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 1;
+    }
+    27% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}

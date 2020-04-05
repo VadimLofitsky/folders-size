@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'JetBrainsMono';
+    src: url("../fonts/JetBrainsMono/JetBrainsMono-Regular.ttf"),
+    url("../fonts/JetBrainsMono/JetBrainsMono-Bold.ttf"),
+    url("../fonts/JetBrainsMono/JetBrainsMono-Bold-Italic.ttf"),
+    url("../fonts/JetBrainsMono/JetBrainsMono-ExtraBold.ttf"),
+    url("../fonts/JetBrainsMono/JetBrainsMono-ExtraBold-Italic.ttf"),
+    url("../fonts/JetBrainsMono/JetBrainsMono-Medium.ttf"),
+    url("../fonts/JetBrainsMono/JetBrainsMono-Medium-Italic.ttf"),
+    url("../fonts/JetBrainsMono/JetBrainsMono-Italic.ttf");
+
+    font-weight: normal;
+    font-style: normal;
+}

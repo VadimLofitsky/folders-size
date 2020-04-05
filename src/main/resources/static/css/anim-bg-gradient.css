@@ -1,0 +1,12 @@
+.bg-animated, #fragment-path:hover {
+    animation: bg-frames 2.5s linear;
+}
+
+@keyframes bg-frames {
+    0% {
+        background-position-x: 200%;
+    }
+    100% {
+        background-position-x: -200%;
+    }
+}
