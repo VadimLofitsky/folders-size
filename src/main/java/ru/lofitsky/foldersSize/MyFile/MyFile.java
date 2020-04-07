@@ -91,7 +91,7 @@ public class MyFile implements Comparable {
         if(files.length == 0) {
             return new MyFile[0];
         } else {
-            String thisPath = getPath() + (isTopLevel ? "" : pathSeparator);
+            String thisPath = getPath() + pathSeparator;
 
             return Arrays.stream(files)
                     .parallel()
