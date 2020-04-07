@@ -1,4 +1,4 @@
-package ru.lofitsky.foldersSize.controller;
+package ru.lofitsky.foldersSize.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import ru.lofitsky.foldersSize.MyFile.FileSizeEntry;
 import ru.lofitsky.foldersSize.MyFile.MyFile;
-import ru.lofitsky.foldersSize.service.FilesService;
-import ru.lofitsky.foldersSize.util.ExecutionPerformance;
-import ru.lofitsky.foldersSize.util.PrettyPrint;
+import ru.lofitsky.foldersSize.service.FilesService.FilesService;
+import ru.lofitsky.foldersSize.Util.ExecutionPerformance;
+import ru.lofitsky.foldersSize.Util.PrettyPrint;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -42,8 +42,11 @@ public class WebViewController {
 
         String parentPath = file.getParent().getPath();
 
-        PrettyPrint printer = new PrettyPrint("ns", 1000L, 6);
-        String duration = printer.print(timer.duration(timerName));
+//        PrettyPrint printer = new PrettyPrint("ns", 1000L, 6);        // in nanoseconds
+        PrettyPrint printerNanoseconds = new PrettyPrint("ns", 3);      // in nanoseconds
+        PrettyPrint printerSeconds = new PrettyPrint("s", 3);      // in nanoseconds
+        String duration = printerNanoseconds.print(timer.duration(timerName));      // in nanoseconds
+        duration += " (" + printerSeconds.printExp(timer.duration(timerName)/1e9, 3) + ")";      // in seconds
 
         String isCalculated = String.valueOf(file.getSize() != -1);
 

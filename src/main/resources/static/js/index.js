@@ -1,3 +1,7 @@
+var osPathSeparator;
+var isIntroFinished;
+var isCalculated;
+
 document.addEventListener("DOMContentLoaded", (ev) => {
     defineGlobalUtilsFunctions();
     pageInit();
@@ -8,17 +12,16 @@ function pageInit() {
     $("table#filesShow").onclick = onTableClick;
     $("#levelUp").onclick = onLevelupClick;
 
-    window.osPathSeparator = $("#header").dataset.pathSeparator;
+    osPathSeparator = $("#header").dataset.pathSeparator;
 
     fragmentizePath();
-    turnOnFragmPathSplash();
     alignLegend();
 }
 
 function onTableClick(clickEvent) {
-    if(!window.isIntroFinished) return false;
+    if(!isIntroFinished) return false;
 
-    var element = window.event.srcElement;
+    var element = clickEvent.target.closest("td");
     if(element.tagName === "TD") {
         var path = element.parentElement.dataset.path;
         if (typeof path !== "undefined") {
@@ -30,11 +33,10 @@ function onTableClick(clickEvent) {
 }
 
 function onLevelupClick(clickEvent) {
-    if(!window.isIntroFinished) return false;
+    if(!isIntroFinished) return false;
 
-    var element = window.event.srcElement;
-    if(element.id === "levelUp") {
-        var path = element.dataset.path;
+    if(clickEvent.target.closest("#levelUp") !== null) {
+        var path = $("#levelUp").dataset.path;
         if (typeof path !== "undefined") {
             getNewContent(path);
         }
@@ -44,9 +46,6 @@ function onLevelupClick(clickEvent) {
 }
 
 function getNewContent(newPath, calculateSize) {
-    // https://stackoverflow.com/questions/34319709/how-to-send-an-http-request-with-a-header-parameter
-    // https://learn.javascript.ru/ajax-xmlhttprequest
-
     waitingMode(true);
 
     if(calculateSize == null || typeof calculateSize !== 'boolean') calculateSize = false;
@@ -66,7 +65,7 @@ function getNewContent(newPath, calculateSize) {
         if (xhr.status != 200) {
             console.log(xhr.status + ': ' + xhr.statusText);
         } else {
-            window.isCalculated = xhr.getResponseHeader("folders-size-isCalculated").toLowerCase() === "true";
+            isCalculated = xhr.getResponseHeader("folders-size-isCalculated").toLowerCase() === "true";
 
             var element = document.createElement("html");
             element.innerHTML = xhr.responseText;
@@ -76,7 +75,7 @@ function getNewContent(newPath, calculateSize) {
             waitingMode(false);
             pageInit();
 
-            if(window.isCalculated)
+            if(isCalculated)
                 markUpTheHeaviest();
         }
     }

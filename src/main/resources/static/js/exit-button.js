@@ -1,11 +1,11 @@
-function exitButtonMouseEnter() {
-    var element = window.event.srcElement;
+function exitButtonMouseEnter(ev) {
+    var element = ev.target.closest(".far");
     element.classList.remove("far");
     element.classList.add("fas");
 }
 
 function exitButtonMouseLeave() {
-    var element = window.event.srcElement;
+    var element = ev.target.closest(".fas");
     element.classList.remove("fas");
     element.classList.add("far");
 }

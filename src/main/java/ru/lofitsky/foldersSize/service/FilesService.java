@@ -1,4 +1,4 @@
-package ru.lofitsky.foldersSize.service.filesService;
+package ru.lofitsky.foldersSize.service;
 
 import org.springframework.stereotype.Service;
 import ru.lofitsky.foldersSize.MyFile.FileSystemRootElement;
@@ -10,9 +10,7 @@ import java.nio.file.FileSystems;
 public class FilesService {
 
     private static final MyFile root = FileSystemRootElement.getRootInstance();
-
     private final RequestsCache cache = RequestsCache.getInstance();
-
     public static final String pathSeparator = FileSystems.getDefault().getSeparator();
 
     public MyFile getRoot() {

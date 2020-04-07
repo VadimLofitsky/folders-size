@@ -91,7 +91,8 @@ public class MyFile implements Comparable {
         if(files.length == 0) {
             return new MyFile[0];
         } else {
-            String thisPath = getPath() + pathSeparator;
+            String thisPath = getPath() + (isTopLevel ? "" : pathSeparator);
+
             return Arrays.stream(files)
                     .parallel()
                     .map(path -> new MyFile(thisPath + path, this))
@@ -212,7 +213,7 @@ public class MyFile implements Comparable {
 
         MyFile myFile = (MyFile) o;
 
-        // Two MyFile objects equals each other only if both are the same type (folder/file) and have equal pathes
+        // Two MyFile objects equals each other only if both are the same type (folder/file) and have equal paths
         return (isFolder == myFile.isFolder) && path.equals(myFile.path);
     }
 

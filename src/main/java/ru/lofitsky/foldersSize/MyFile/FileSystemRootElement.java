@@ -10,7 +10,7 @@ public class FileSystemRootElement extends MyFile {
     private static FileSystemRootElement rootInstance;
 
     static {
-        rootInstance=new FileSystemRootElement();
+        rootInstance = new FileSystemRootElement();
     }
 
     private FileSystemRootElement() {

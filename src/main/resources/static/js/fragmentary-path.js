@@ -27,20 +27,20 @@ function generateFragmentHtml(part) {
     return html;
 }
 
-function pathFragmentMouseEnter() {
-    selectPathFragments(true, window.event.srcElement);
-    window.event.cancelBubble = false;
+function pathFragmentMouseEnter(ev) {
+    selectPathFragments(false, ev.target.closest(".path-fragment"));
+    ev.cancelBubble = false;
     return true;
 }
 
-function pathFragmentMouseLeave() {
-    selectPathFragments(false, window.event.srcElement);
-    window.event.cancelBubble = false;
+function pathFragmentMouseLeave(ev) {
+    selectPathFragments(false, ev.target.closest(".path-fragment"));
+    ev.cancelBubble = false;
     return true;
 }
 
-function pathFragmentClick() {
-    var el = window.event.srcElement;
+function pathFragmentClick(ev) {
+    var el = ev.target.closest(".path-fragment");
 
     while (el.nextSibling != null)
         el.nextSibling.remove();
@@ -48,7 +48,7 @@ function pathFragmentClick() {
     var newPath = el.parentElement.innerText;
     getNewContent(newPath);
 
-    window.event.cancelBubble = false;
+    ev.cancelBubble = false;
     return false;
 }
 

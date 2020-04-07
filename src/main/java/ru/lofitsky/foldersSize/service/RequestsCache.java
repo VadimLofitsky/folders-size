@@ -1,4 +1,4 @@
-package ru.lofitsky.foldersSize.service.filesService;
+package ru.lofitsky.foldersSize.service;
 
 import ru.lofitsky.foldersSize.MyFile.MyFile;
 

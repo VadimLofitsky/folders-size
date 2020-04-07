@@ -1,3 +1,7 @@
+var tipAnimationsFinished;
+var tipsNumber;
+var isIntroFinished;
+
 function intro() {
     var tipsContainer = $("#tips");
 
@@ -28,27 +32,27 @@ function tipsAnimationStartHandler(ev) {
 }
 
 function tipsAnimationEndHandler(ev) {
-    if(typeof window.tipAnimationsFinished === 'undefined') {
-        window.tipAnimationsFinished = 0;
-        window.tipsNumber = $$(".tip", $("#tips")).length;
+    if(typeof tipAnimationsFinished === 'undefined') {
+        tipAnimationsFinished = 0;
+        tipsNumber = $$(".tip", $("#tips")).length;
     }
 
     var tipsContainer = $("#tips");
 
     if(ev.animationName === "tip-show") {
-        var nextTip = $$("#tips>.tip.tip-animated")[window.tipAnimationsFinished++].nextElementSibling;
+        var nextTip = $$("#tips>.tip.tip-animated")[tipAnimationsFinished++].nextElementSibling;
         if(nextTip != null) {
             nextTip.classList.add("tip-animated");
         }
     }
 
-    if(window.tipAnimationsFinished === window.tipsNumber) {
+    if(tipAnimationsFinished === tipsNumber) {
         tipsContainer.classList.add("tips-animated-hide");
         removeBodyKeyAndClickListeners();   // to remove body event listeners on keypress and click
     }
 
     if(ev.animationName === "tips-hide") {
         tipsContainer.parentElement.removeChild(tipsContainer);
-        window.isIntroFinished = true;
+        isIntroFinished = true;
     }
 }
