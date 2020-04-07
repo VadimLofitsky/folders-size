@@ -27,19 +27,20 @@ function generateFragmentHtml(part) {
     return html;
 }
 
-function pathFragmentMouseEnter(ev) {
-    selectPathFragments(false, ev.target.closest(".path-fragment"));
-    ev.cancelBubble = false;
+function pathFragmentMouseEnter() {
+    var ev = window.event;
+    selectPathFragments(true, ev.target);
     return true;
 }
 
-function pathFragmentMouseLeave(ev) {
-    selectPathFragments(false, ev.target.closest(".path-fragment"));
-    ev.cancelBubble = false;
+function pathFragmentMouseLeave() {
+    var ev = window.event;
+    selectPathFragments(false, ev.target);
     return true;
 }
 
-function pathFragmentClick(ev) {
+function pathFragmentClick() {
+    var ev = window.event;
     var el = ev.target.closest(".path-fragment");
 
     while (el.nextSibling != null)
