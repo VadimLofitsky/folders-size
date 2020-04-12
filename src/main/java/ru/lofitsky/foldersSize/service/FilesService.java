@@ -8,7 +8,6 @@ import java.nio.file.FileSystems;
 
 @Service
 public class FilesService {
-
     private static final MyFile root = FileSystemRootElement.getRootInstance();
     private final RequestsCache cache = RequestsCache.getInstance();
     public static final String pathSeparator = FileSystems.getDefault().getSeparator();
