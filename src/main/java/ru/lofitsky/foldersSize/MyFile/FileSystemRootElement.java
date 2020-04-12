@@ -21,16 +21,16 @@ public class FileSystemRootElement extends MyFile {
 
         String[] roots = retrieveRootDirs();
 
-        if(roots.length == 1) {
-            // Single root directory, like / in 'nix(nux) or single drive in Windows
-            path = roots[0];
-            thisNioFile = new File(path);
-            files = getFiles();
-        } else {
+        if(MyFile.isWindowsOS) {
             // Multiple root directories. Use pseudonym for the root element's path
             path = MyFile.fileSystemRootElementPathPseudonym;
             thisNioFile = null;
             files = roots;
+        } else {
+            // Single root directory, like / in 'nix(nux) or single drive in Windows
+            path = roots[0];
+            thisNioFile = new File(path);
+            files = getFiles();
         }
     }
 
@@ -38,7 +38,8 @@ public class FileSystemRootElement extends MyFile {
         List<String> rootDirectories = new ArrayList<>();
         Iterable<Path> roots = FileSystems.getDefault().getRootDirectories();
         for(Path p : roots) {
-            rootDirectories.add(p.toString());
+            String rootPath = p.toString() + (isWindowsOS ? "\\" : "");
+            rootDirectories.add(rootPath);
         }
 
         return rootDirectories.toArray(new String[0]);
