@@ -144,7 +144,8 @@ span.path-fragment.path-fragment-selected {
     display: flex;
 }
 #legend>* {
-    display: inline-block;
+    display: grid;
+    align-content: center;
     background-color: darkgray;
 
     overflow-x: hidden;
