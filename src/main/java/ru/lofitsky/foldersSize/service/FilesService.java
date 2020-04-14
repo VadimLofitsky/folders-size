@@ -25,15 +25,19 @@ public class FilesService {
             return root;
         }
 
-        if(calculateSize) {
-            return getCalculatedFile(path);
+        MyFile myFile = getMyFileFromCache(path, calculateSize);
+        if(myFile == null) {
+            myFile = new MyFile(path);
+            if(calculateSize) {
+                myFile.calculateSize();
+            }
         }
 
-        return new MyFile(path);
+        return myFile;
     }
 
-    private MyFile getCalculatedFile(String path) {
-        return cache.get(path);
+    private MyFile getMyFileFromCache(String path, boolean calculateSize) {
+        return cache.get(path, calculateSize);
     }
 
     public String[] getChildren(String path) {

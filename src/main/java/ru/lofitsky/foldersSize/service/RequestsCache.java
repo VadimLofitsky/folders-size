@@ -33,7 +33,7 @@ class RequestsCache {
         return myFile;
     }
 
-    MyFile get(String path) {
+    MyFile get(String path, boolean calculated) {
         MyFile myFile = cache.get(path);
 
         if(myFile == null) {
@@ -57,8 +57,8 @@ class RequestsCache {
                 }
 
             } else {
-                // cache does not contain parent branch. Store it.
-                myFile = add(path);
+                // cache does not contain parent branch. Store it if calculated == true, or return null otherwise
+                myFile = calculated ? add(path) : null;
             }
         }
 
