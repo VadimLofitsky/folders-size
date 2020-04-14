@@ -21,9 +21,9 @@ public class FileSystemRootElement extends MyFile {
 
         String[] roots = retrieveRootDirs();
 
-        if(MyFile.isWindowsOS) {
+        if(MyFile.IS_WINDOWS_OS) {
             // Multiple root directories. Use pseudonym for the root element's path
-            path = MyFile.fileSystemRootElementPathPseudonym;
+            path = MyFile.FILE_SYSTEM_ROOT_ELEMENT_PATH_PSEUDONYM;
             thisNioFile = null;
             files = roots;
         } else {
@@ -38,7 +38,7 @@ public class FileSystemRootElement extends MyFile {
         List<String> rootDirectories = new ArrayList<>();
         Iterable<Path> roots = FileSystems.getDefault().getRootDirectories();
         for(Path p : roots) {
-            String rootPath = p.toString() + (isWindowsOS ? "\\" : "");
+            String rootPath = p.toString() + (IS_WINDOWS_OS ? "\\" : "");
             rootDirectories.add(rootPath);
         }
 

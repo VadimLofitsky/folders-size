@@ -10,7 +10,7 @@ import java.nio.file.FileSystems;
 public class FilesService {
     private static final MyFile root = FileSystemRootElement.getRootInstance();
     private final RequestsCache cache = RequestsCache.getInstance();
-    public static final String pathSeparator = FileSystems.getDefault().getSeparator();
+    public static final String PATH_SEPARATOR = FileSystems.getDefault().getSeparator();
 
     public MyFile getRoot() {
         return root;

@@ -43,10 +43,10 @@ class RequestsCache {
                 // cache contains parent branch. Retrieve myFile from cache
                 myFile = cache.get(parentBranch);
 
-                String quotedPathSeparator = Pattern.quote(FilesService.pathSeparator);
+                String quotedPathSeparator = Pattern.quote(FilesService.PATH_SEPARATOR);
                 String tail = path.replace(parentBranch, "");
 
-                if(tail.startsWith(FilesService.pathSeparator)) {
+                if(tail.startsWith(FilesService.PATH_SEPARATOR)) {
                     tail = tail.replaceFirst(quotedPathSeparator, "");
                 }
 
