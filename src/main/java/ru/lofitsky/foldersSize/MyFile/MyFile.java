@@ -1,12 +1,15 @@
 package ru.lofitsky.foldersSize.MyFile;
 
+import ru.lofitsky.foldersSize.service.OSType;
 import ru.lofitsky.foldersSize.util.PrettyPrint;
 
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 public class MyFile implements Comparable {
+    public static final boolean isWindowsOS = OSType.getOS().equals(OSType.WINDOWS);
 
     public static final String pathSeparator = FileSystems.getDefault().getSeparator();
 
@@ -32,24 +35,37 @@ public class MyFile implements Comparable {
 
         path = fullPath;
 
-        if(thisNioFile.getParentFile() == null) {
+        String parentPath = thisNioFile.getParent();
+        isTopLevel = parentPath == null;
+
+        if(isTopLevel || parentPath.equals(FileSystemRootElement.getRootInstance().path)) {
             parent = FileSystemRootElement.getRootInstance();
-            if(fullPath.endsWith(pathSeparator) && fullPath.length()>pathSeparator.length()) {
-                path = fullPath.substring(0, fullPath.length() - pathSeparator.length());
-            }
         } else {
             parent = new MyFile(thisNioFile.getParent());
         }
 
 
         isFolder = thisNioFile.isDirectory();
-        isTopLevel = thisNioFile.getParent() == null;
 
         files = getFiles();
     }
     public MyFile(String fullPath, MyFile parent) {
         this(fullPath);
         this.parent = parent;
+    }
+
+    public MyFile createChildMyFile(String parentFullPath, String filename, MyFile parentMyFile) {
+        String newPath = parentFullPath + pathSeparator + filename;
+
+        if(isWindowsOS) {
+            String regex = fileSystemRootElementPathPseudonym + Pattern.quote(pathSeparator);
+            newPath = newPath.replaceFirst(regex, "");
+            newPath = newPath.replace("\\\\", "\\");
+        } else {
+            newPath = newPath.replace("//", "/");
+        }
+
+        return new MyFile(newPath, this);
     }
 
     public boolean isTopLevel() {
@@ -91,11 +107,9 @@ public class MyFile implements Comparable {
         if(files.length == 0) {
             return new MyFile[0];
         } else {
-            String thisPath = getPath() + pathSeparator;
-
             return Arrays.stream(files)
                     .parallel()
-                    .map(path -> new MyFile(thisPath + path, this))
+                    .map(filename -> createChildMyFile(path, filename, this))
                     .peek(myFile -> {
                         if(performSizeCalculation)
                             myFile.calculateSize();

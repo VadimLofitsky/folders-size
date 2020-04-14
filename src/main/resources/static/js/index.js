@@ -92,7 +92,7 @@ function calculateHere() {
 }
 
 function alignLegend() {
-    var legendSpans = $$("#legend>span");
+    var legendSpans = $$("#legend>*");
 
     $$("table#filesShow tr:first-child>td").forEach((cell, index) => {
         legendSpans[index].style.width = cell.getBoundingClientRect().width + "px";

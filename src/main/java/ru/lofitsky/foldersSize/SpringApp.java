@@ -2,6 +2,7 @@ package ru.lofitsky.foldersSize;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import ru.lofitsky.foldersSize.service.OSType;
 
 import java.io.IOException;
 
@@ -34,17 +35,20 @@ public class SpringApp {
     }
 
     private static String getShellCommand() throws Exception {
-        String os = System.getProperty("os.name").toLowerCase();
+        OSType os = OSType.getOS();
         System.out.println("OS => " + os);
 
-        if(os.indexOf("windows") >= 0) return "explorer";
-
-        if(os.indexOf("nix") >= 0
-                || os.indexOf("nux") >= 0
-                || os.indexOf("aix") >= 0) return "xdg-open";
-
-        if(os.indexOf("mac") >= 0) return "open";
-
-        throw new Exception("Unsupported operating system");
+        switch(os) {
+            case WINDOWS:
+                return "explorer";
+            case NIX:
+            case NUX:
+            case AIX:
+                return "xdg-open";
+            case MAC:
+                return "open";
+            case UNKNOWN: throw new Exception("Unsupported operating system: " + os);
+            default: return null;
+        }
     }
 }
