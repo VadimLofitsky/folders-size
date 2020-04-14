@@ -42,8 +42,11 @@ public class WebViewController {
 
         String parentPath = file.getParent().getPath();
 
-        PrettyPrint printer = new PrettyPrint("ns", 1000L, 6);
-        String duration = printer.print(timer.duration(timerName));
+//        PrettyPrint printer = new PrettyPrint("ns", 1000L, 6);        // in nanoseconds
+        PrettyPrint printerNanoseconds = new PrettyPrint("ns", 3);      // in nanoseconds
+        PrettyPrint printerSeconds = new PrettyPrint("s", 3);      // in nanoseconds
+        String duration = printerNanoseconds.print(timer.duration(timerName));      // in nanoseconds
+        duration += " (" + printerSeconds.printExp(timer.duration(timerName)/1e9, 3) + ")";      // in seconds
 
         String isCalculated = String.valueOf(file.getSize() != -1);
 
