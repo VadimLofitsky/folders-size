@@ -79,4 +79,8 @@ public class PrettyPrint {
 
         return String.format(prettyFormat, prettyValue, prefixes[prefixIndex]);
     }
+
+    public String printExp(double value, int floatPrecision) {
+        return String.format("%."+ floatPrecision + "e %s", value, unitName);
+    }
 }
