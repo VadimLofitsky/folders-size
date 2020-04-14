@@ -9,11 +9,11 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class MyFile implements Comparable {
-    public static final boolean isWindowsOS = OSType.getOS().equals(OSType.WINDOWS);
+    static final boolean IS_WINDOWS_OS = OSType.getOS().equals(OSType.WINDOWS);
 
-    public static final String pathSeparator = FileSystems.getDefault().getSeparator();
+    private static final String PATH_SEPARATOR = FileSystems.getDefault().getSeparator();
 
-    static final String fileSystemRootElementPathPseudonym = "/";
+    static final String FILE_SYSTEM_ROOT_ELEMENT_PATH_PSEUDONYM = "/";
 
     boolean isTopLevel;
     MyFile parent;
@@ -55,10 +55,10 @@ public class MyFile implements Comparable {
     }
 
     public MyFile createChildMyFile(String parentFullPath, String filename, MyFile parentMyFile) {
-        String newPath = parentFullPath + pathSeparator + filename;
+        String newPath = parentFullPath + PATH_SEPARATOR + filename;
 
-        if(isWindowsOS) {
-            String regex = fileSystemRootElementPathPseudonym + Pattern.quote(pathSeparator);
+        if(IS_WINDOWS_OS) {
+            String regex = FILE_SYSTEM_ROOT_ELEMENT_PATH_PSEUDONYM + Pattern.quote(PATH_SEPARATOR);
             newPath = newPath.replaceFirst(regex, "");
             newPath = newPath.replace("\\\\", "\\");
         } else {
