@@ -10,18 +10,17 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-
     <groupId>ru.lofitsky</groupId>
     <artifactId>folders-size</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>folders-size</name>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>11</java.version>
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
+        <maven.test.skip>true</maven.test.skip>
     </properties>
-
-    <description>No description yet</description>
 
     <dependencies>
         <dependency>
@@ -52,8 +51,18 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>fat</classifier>
+                            <mainClass>ru.lofitsky.foldersSize.SpringApp</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
-
 </project>

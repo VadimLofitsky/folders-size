@@ -9,5 +9,4 @@ class FoldersSizeAppApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
